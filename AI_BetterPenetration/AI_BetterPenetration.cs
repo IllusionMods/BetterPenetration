@@ -19,7 +19,7 @@ namespace AI_BetterPenetration
     [BepInProcess("AI-Syoujyo")]
     public class AI_BetterPenetration : BaseUnityPlugin
     {
-        internal const string VERSION = "5.0.1.0";
+        internal const string VERSION = "5.0.1.1";
         internal const int MaleLimit = 1;
         internal const int FemaleLimit = 2;
 
