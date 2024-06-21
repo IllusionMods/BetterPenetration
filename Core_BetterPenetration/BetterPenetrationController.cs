@@ -8,6 +8,7 @@ using BepInEx;
 using System.Reflection;
 using HarmonyLib;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 #if AI || HS2
@@ -18,6 +19,8 @@ namespace Core_BetterPenetration
 {
     public class BetterPenetrationController : CharaCustomFunctionController
     {
+        internal static List<BetterPenetrationController> controllers = new List<BetterPenetrationController> ();
+
         internal DanAgent danAgent;
         internal DanOptions danOptions;
         internal CollisionAgent collisionAgent;
@@ -155,11 +158,15 @@ namespace Core_BetterPenetration
 
         protected override void Start()
         {
+            controllers.Add(this);
+
             base.Start();
         }
 
         protected override void OnDestroy()
         {
+            controllers.Remove(this);
+
             ClearDanAgent();
             base.OnDestroy();
         }
