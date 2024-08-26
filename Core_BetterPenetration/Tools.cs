@@ -179,21 +179,40 @@ namespace Core_BetterPenetration
 
             foreach (var dynamicBone in dynamicBones)
             {
-                if (dynamicBone == null || dynamicBone.name == null || dynamicBone.m_Colliders == null)
+                if (!dynamicBone)
                     continue;
 
-                bool bpBone = dynamicBone.name.Contains("Vagina") || dynamicBone.name.Contains("Belly") || dynamicBone.name.Contains("Ana");
-                for (int collider = dynamicBone.m_Colliders.Count - 1; collider >= 0; collider--)
+                var dbName = dynamicBone.name;
+                var dbColliders = dynamicBone.m_Colliders;
+
+                if (dbName == null || dbColliders == null || dbColliders.Count <= 0)
+                    continue;
+
+                bool bpBone = dbName.Contains("Vagina") || dbName.Contains("Belly") || dbName.Contains("Ana");
+                int last = 0;
+
+                for (int collider = 0; collider < dbColliders.Count; ++collider)
                 {
-                    if (dynamicBone.m_Colliders[collider] == null || dynamicBone.m_Colliders[collider].name == null)
-                        continue;
+                    if (dbColliders[collider])
+                    {
+                        var colliderName = dbColliders[collider].name;
 
-                    bool bpCollider = dynamicBone.m_Colliders[collider].name.Contains("cm_J_vdan") || dynamicBone.m_Colliders[collider].name.Contains("cm_J_dan");
-                    if (bpBone == bpCollider)
-                        continue;
+                        if (colliderName != null)
+                        {
+                            bool bpCollider = colliderName.Contains("cm_J_vdan") || colliderName.Contains("cm_J_dan");
 
-                    dynamicBone.m_Colliders.RemoveAt(collider);
+                            if (bpBone != bpCollider)
+                                continue;   //remove collider
+                        }
+                    }
+
+                    //keep collider
+                    if (last != collider)
+                        dbColliders[last] = dbColliders[collider];
+                    ++last;
                 }
+
+                dbColliders.RemoveRange(last, dbColliders.Count - last);
             }
         }
     }
