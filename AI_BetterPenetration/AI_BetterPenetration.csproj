@@ -117,4 +117,7 @@
   <Import Project="..\packages\IllusionLibs.AIGirl.UnityEngine.CoreModule.2018.2.21.4\build\IllusionLibs.AIGirl.UnityEngine.CoreModule.targets" Condition="Exists('..\packages\IllusionLibs.AIGirl.UnityEngine.CoreModule.2018.2.21.4\build\IllusionLibs.AIGirl.UnityEngine.CoreModule.targets')" />
   <Import Project="..\packages\IllusionLibs.AIShoujo.Assembly-CSharp.2019.12.20.4\build\IllusionLibs.AIShoujo.Assembly-CSharp.targets" Condition="Exists('..\packages\IllusionLibs.AIShoujo.Assembly-CSharp.2019.12.20.4\build\IllusionLibs.AIShoujo.Assembly-CSharp.targets')" />
   <Import Project="..\packages\IllusionLibs.BepInEx.Harmony.2.9.0\build\IllusionLibs.BepInEx.Harmony.targets" Condition="Exists('..\packages\IllusionLibs.BepInEx.Harmony.2.9.0\build\IllusionLibs.BepInEx.Harmony.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) AI</PostBuildEvent>
+  </PropertyGroup>
 </Project>
