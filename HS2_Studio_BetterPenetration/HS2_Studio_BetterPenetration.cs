@@ -241,11 +241,7 @@ namespace HS2_Studio_BetterPenetration
 
         internal static void BeforeCharacterReload()
         {
-            var bpControllers = FindObjectsOfType<BetterPenetrationController>();
-            if (bpControllers == null)
-                return;
-
-            foreach (var controller in bpControllers)
+            foreach (var controller in BetterPenetrationController.controllers)
             { 
                 if (controller == null)
                     continue;
@@ -308,11 +304,7 @@ namespace HS2_Studio_BetterPenetration
             if (nodeConstraintPlugin == null)
                 return;
 
-            var bpControllers = FindObjectsOfType<BetterPenetrationController>();
-            if (bpControllers == null)
-                return;
-
-            foreach (var controller in bpControllers)
+            foreach (var controller in BetterPenetrationController.controllers)
             {
                 if (controller == null)
                     continue;
@@ -335,11 +327,7 @@ namespace HS2_Studio_BetterPenetration
 
             updateCount = 0;
 
-            var bpControllers = BetterPenetrationController.controllers;
-            if (bpControllers == null)
-                return;
-
-            foreach (var controller in bpControllers)
+            foreach (var controller in BetterPenetrationController.controllers)
             {
                 if (controller == null)
                     continue;
