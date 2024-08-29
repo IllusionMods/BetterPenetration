@@ -13,13 +13,14 @@ using Manager;
 
 namespace AI_BetterPenetration
 {
-    [BepInPlugin("animal42069.aibetterpenetration", "AI Better Penetration", VERSION)]
+    [BepInPlugin(GUID, "AI Better Penetration", VERSION)]
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.10")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
     [BepInProcess("AI-Syoujyo")]
     public class AI_BetterPenetration : BaseUnityPlugin
     {
-        internal const string VERSION = "5.0.1.1";
+        public const string GUID = "animal42069.aibetterpenetration";
+        public const string VERSION = Constants.PluginVersion;
         internal const int MaleLimit = 1;
         internal const int FemaleLimit = 2;
 

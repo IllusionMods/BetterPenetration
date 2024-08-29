@@ -12,14 +12,15 @@ using UnityEngine;
 
 namespace HS2_BetterPenetration
 {
-    [BepInPlugin("animal42069.HS2betterpenetration", "HS2 Better Penetration", VERSION)]
+    [BepInPlugin(GUID, "HS2 Better Penetration", VERSION)]
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.10")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
     [BepInProcess("HoneySelect2")]
     [BepInProcess("HoneySelect2VR")]
     public class HS2_BetterPenetration : BaseUnityPlugin
     {
-        internal const string VERSION = "5.0.1.1";
+        public const string GUID = "animal42069.HS2betterpenetration";
+        public const string VERSION = Constants.PluginVersion;
         internal const int MaleLimit = 2;
         internal const int FemaleLimit = 2;
 
