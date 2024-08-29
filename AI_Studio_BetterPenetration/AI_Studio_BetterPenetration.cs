@@ -21,9 +21,9 @@ namespace AI_Studio_BetterPenetration
     [BepInProcess("StudioNEOV2")]
     public class AI_Studio_BetterPenetration : BaseUnityPlugin
     {
-        internal const string GUID = "com.animal42069.studiobetterpenetration";
+        public const string GUID = "com.animal42069.studiobetterpenetration";
         internal const string PluginName = "AI Studio Better Penetration";
-        internal const string VERSION = "5.0.1.1";
+        public const string VERSION = Constants.PluginVersion;
         internal const string BEHAVIOR = "BetterPenetrationController";
         internal const string StudioCategoryName = "Better Penetration";
         internal static Harmony harmony;

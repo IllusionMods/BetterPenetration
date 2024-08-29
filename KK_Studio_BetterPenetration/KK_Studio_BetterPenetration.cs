@@ -20,9 +20,9 @@ namespace KK_Studio_BetterPenetration
     [BepInProcess("CharaStudio")]
     public class KK_Studio_BetterPenetration : BaseUnityPlugin
     {
-        internal const string GUID = "com.animal42069.kkstudiobetterpenetration";
+        public const string GUID = "com.animal42069.kkstudiobetterpenetration";
         internal const string PluginName = "KK Studio Better Penetration";
-        internal const string VERSION = "4.5.5.1";
+        public const string VERSION = Constants.PluginVersion;
         internal const string BEHAVIOR = "BetterPenetrationController";
         internal const string StudioCategoryName = "Better Penetration";
         internal static Harmony harmony;

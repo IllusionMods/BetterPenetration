@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace KKS_BetterPenetration
 {
-    [BepInPlugin("animal42069.KKSbetterpenetration", "KKS Better Penetration", VERSION)]
+    [BepInPlugin(GUID, "KKS Better Penetration", VERSION)]
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.11.1")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
     [BepInProcess("KoikatsuSunshine")]
@@ -20,7 +20,8 @@ namespace KKS_BetterPenetration
     {
         public static KKS_BetterPenetration instance;
 
-        internal const string VERSION = "4.5.5.1";
+        public const string GUID = "animal42069.KKSbetterpenetration";
+        public const string VERSION = Constants.PluginVersion;
         internal const int MaleLimit = 2;
         internal const int FemaleLimit = 2;
 
