@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(KK_Studio_BetterPenetration.KK_Studio_BetterPenetration.VERSION)]
-[assembly: AssemblyFileVersion(KK_Studio_BetterPenetration.KK_Studio_BetterPenetration.VERSION)]
+[assembly: AssemblyVersion(Core_BetterPenetration.Studio_BetterPenetration.VERSION)]
+[assembly: AssemblyFileVersion(Core_BetterPenetration.Studio_BetterPenetration.VERSION)]

@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿#if STUDIO
+using BepInEx;
 using BepInEx.Bootstrap;
 using HarmonyLib;
 using UnityEngine;
@@ -9,19 +10,26 @@ using UniRx;
 using System;
 using System.Linq;
 using System.Reflection;
-using Core_BetterPenetration;
+#if AI || HS2
+using AIChara;
+#endif
 
-namespace KK_Studio_BetterPenetration
+namespace Core_BetterPenetration
 {
     [BepInPlugin(GUID, PluginName, VERSION)]
-    [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.11.1")]
+    [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.10")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
     [BepInDependency("com.joan6694.illusionplugins.nodesconstraints")]
+#if AI || HS2
+    [BepInProcess("StudioNEOV2")]
+#endif
+#if KK || KKS
     [BepInProcess("CharaStudio")]
-    public class KK_Studio_BetterPenetration : BaseUnityPlugin
+#endif
+    public class Studio_BetterPenetration : BaseUnityPlugin
     {
-        public const string GUID = "com.animal42069.kkstudiobetterpenetration";
-        internal const string PluginName = "KK Studio Better Penetration";
+        public const string GUID = "com.animal42069.studiobetterpenetration";
+        internal const string PluginName = "Studio Better Penetration";
         public const string VERSION = Constants.PluginVersion;
         internal const string BEHAVIOR = "BetterPenetrationController";
         internal const string StudioCategoryName = "Better Penetration";
@@ -35,7 +43,7 @@ namespace KK_Studio_BetterPenetration
         {
             CharacterApi.RegisterExtraBehaviour<BetterPenetrationController>(BEHAVIOR);
 
-            harmony = new Harmony("KK_Studio_BetterPenetration");
+            harmony = new Harmony("Studio_BetterPenetration");
             harmony.PatchAll(GetType());
 
             Chainloader.PluginInfos.TryGetValue("com.deathweasel.bepinex.uncensorselector", out PluginInfo pluginInfo);
@@ -198,7 +206,8 @@ namespace KK_Studio_BetterPenetration
                     controller.ReturnRate = value;
             });
             StudioAPI.GetOrCreateCurrentStateCategory(StudioCategoryName).AddControl(returnRate);
-/*
+
+#if AI || HS2
             var bellyBulgeEnable = new CurrentStateCategorySwitch("Enable Belly Bulge", c => StudioAPI.GetSelectedControllers<BetterPenetrationController>().First().EnableBellyBulge);
             bellyBulgeEnable.Value.Subscribe(value =>
             {
@@ -213,7 +222,8 @@ namespace KK_Studio_BetterPenetration
                 foreach (var controller in StudioAPI.GetSelectedControllers<BetterPenetrationController>())
                     controller.BellyBulgeScale = value;
             });
-            StudioAPI.GetOrCreateCurrentStateCategory(StudioCategoryName).AddControl(bellyBulgeScale);*/
+            StudioAPI.GetOrCreateCurrentStateCategory(StudioCategoryName).AddControl(bellyBulgeScale);
+#endif
         }
 
         public static void RegisterStudioControls()
@@ -336,3 +346,4 @@ namespace KK_Studio_BetterPenetration
         }
     }
 }
+#endif
