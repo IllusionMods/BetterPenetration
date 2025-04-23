@@ -4,12 +4,13 @@ using BepInEx.Bootstrap;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using System.Reflection;
 using AIChara;
 using Core_BetterPenetration;
 using UnityEngine;
 using Manager;
+
+[assembly: System.Reflection.AssemblyVersion(AI_BetterPenetration.AI_BetterPenetration.VERSION)]
 
 namespace AI_BetterPenetration
 {

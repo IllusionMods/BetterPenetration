@@ -8,6 +8,8 @@ using HarmonyLib;
 using Core_BetterPenetration;
 using UnityEngine;
 
+[assembly: System.Reflection.AssemblyVersion(KK_BetterPenetration.KK_BetterPenetration.VERSION)]
+
 namespace KK_BetterPenetration
 {
     [BepInPlugin(GUID, "KK Better Penetration", VERSION)]
