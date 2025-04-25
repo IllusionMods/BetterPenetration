@@ -10,6 +10,8 @@ using AIChara;
 using Core_BetterPenetration;
 using UnityEngine;
 
+[assembly: System.Reflection.AssemblyVersion(HS2_BetterPenetration.HS2_BetterPenetration.VERSION)]
+
 namespace HS2_BetterPenetration
 {
     [BepInPlugin(GUID, "HS2 Better Penetration", VERSION)]
