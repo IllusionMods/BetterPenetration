@@ -147,6 +147,10 @@ namespace Core_BetterPenetration
                 if (data.data.TryGetValue("BellyBulgeScale", out var BellyBulgeScale))
                     bellyBulgeScale = (float)BellyBulgeScale;
             }
+            else
+            {
+                enabled = false;
+            }
 
             danOptions = new DanOptions(colliderRadiusScale, colliderLengthScale, lengthSquish, girthSquish, squishThreshold, false, 10.0f);
             collisionOptions = new CollisionOptions(maxPush, maxPull, pullRate, returnRate, enableBellyBulge, bellyBulgeScale);
