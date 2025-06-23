@@ -14,8 +14,6 @@ using System.Reflection;
 using AIChara;
 #endif
 
-[assembly: System.Reflection.AssemblyVersion(Core_BetterPenetration.Studio_BetterPenetration.VERSION)]
-
 namespace Core_BetterPenetration
 {
     [BepInPlugin(GUID, PluginName, VERSION)]

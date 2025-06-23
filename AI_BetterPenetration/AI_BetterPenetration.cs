@@ -10,8 +10,6 @@ using Core_BetterPenetration;
 using UnityEngine;
 using Manager;
 
-[assembly: System.Reflection.AssemblyVersion(AI_BetterPenetration.AI_BetterPenetration.VERSION)]
-
 namespace AI_BetterPenetration
 {
     [BepInPlugin(GUID, "AI Better Penetration", VERSION)]
