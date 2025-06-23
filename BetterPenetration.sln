@@ -21,18 +21,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_BetterPenetration", "KK
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Studio_BetterPenetration", "KKS_Studio_BetterPenetration\KKS_Studio_BetterPenetration.csproj", "{B2F3F19C-14D5-477B-ADF7-EFBE76E85AD7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{58356582-991A-40E5-8DEF-704666191C72}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{052b343b-8793-481b-b053-0a99b09a0b52}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{06a2be07-7ab5-46cd-8a77-fde1bfde687c}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{0ff42a1b-86eb-4cee-bd04-da3bb249773f}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{13f643e0-45ca-483e-adfa-32634a22787e}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{7008d2e3-1c29-4786-a4f6-7cfd6d6d8ad9}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{a68beae5-21b9-4c45-9624-a377bb953238}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{b2f3f19c-14d5-477b-adf7-efbe76e85ad7}*SharedItemsImports = 4
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{ccd25b62-1040-4727-a0b5-78335fcf9f01}*SharedItemsImports = 13
-		Core_BetterPenetration\Core_BetterPenetration.projitems*{f5e096bb-2509-4431-972e-148500210d06}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -76,5 +71,16 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCFA8C78-8530-4958-8678-C27D5C24C5F8}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{052b343b-8793-481b-b053-0a99b09a0b52}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{06a2be07-7ab5-46cd-8a77-fde1bfde687c}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{0ff42a1b-86eb-4cee-bd04-da3bb249773f}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{13f643e0-45ca-483e-adfa-32634a22787e}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{7008d2e3-1c29-4786-a4f6-7cfd6d6d8ad9}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{a68beae5-21b9-4c45-9624-a377bb953238}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{b2f3f19c-14d5-477b-adf7-efbe76e85ad7}*SharedItemsImports = 5
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{ccd25b62-1040-4727-a0b5-78335fcf9f01}*SharedItemsImports = 13
+		Core_BetterPenetration\Core_BetterPenetration.projitems*{f5e096bb-2509-4431-972e-148500210d06}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
