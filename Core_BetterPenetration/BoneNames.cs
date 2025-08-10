@@ -75,7 +75,7 @@ namespace Core_BetterPenetration
         internal static readonly List<string> anaVibeAnimationNames = new List<string> { "ait_f_13", "ait_f_14", "aia_f_09", "aia_f_16" };
 
         internal static readonly List<string> maleFingerAnimationNames = new List<string> { "aia_f_03", "aia_f_05", "aia_f_14", "aia_f_21", "h2a_f_00", "h2a_f_01", "h2_mf2_f1_02", "h2_mf2_f2_05" };
-        internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09"};
+        internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "aia_f_07", "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09"};
         internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01" };
     }
 #endif
