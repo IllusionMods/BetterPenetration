@@ -60,7 +60,7 @@ namespace Core_BetterPenetration
             danTop.transform.rotation = danPoints[0].transform.rotation;
         }
 
-#if !STUDIO
+#if !Studio
         internal void SquishDanGirth(float girthScaleFactor)
         {
             float points = danPoints.Count - 1;

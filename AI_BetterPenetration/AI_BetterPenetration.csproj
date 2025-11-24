@@ -1,19 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;AI</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineConstants>TRACE;AI</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="IllusionLibs.AIGirl.Assembly-CSharp-firstpass" Version="2020.5.29.5" />
-    <PackageReference Include="IllusionLibs.AIGirl.UnityEngine.CoreModule" Version="2018.2.21.4" />
-    <PackageReference Include="IllusionLibs.AIShoujo.Assembly-CSharp" Version="2022.6.20.1" />
-    <PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
-    <PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
-  </ItemGroup>
-  <Import Project="..\Core_BetterPenetration\Core_BetterPenetration.projitems" Label="Shared" />
+	<PropertyGroup>
+		<TargetFramework>net46</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="IllusionModdingAPI.AIAPI" Version="1.45.1"/>
+	</ItemGroup>
+
+	<Import Project="..\Core_BetterPenetration\Core_BetterPenetration.projitems" Label="Shared" />
 </Project>

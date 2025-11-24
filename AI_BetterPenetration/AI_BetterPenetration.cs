@@ -15,11 +15,11 @@ namespace AI_BetterPenetration
     [BepInPlugin(GUID, "AI Better Penetration", VERSION)]
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.10")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
-    [BepInProcess("AI-Syoujyo")]
+    [BepInProcess(KKAPI.KoikatuAPI.GameProcessName)]
     public class AI_BetterPenetration : BaseUnityPlugin
     {
         public const string GUID = "animal42069.aibetterpenetration";
-        public const string VERSION = Constants.PluginVersion;
+        public const string VERSION = Constants.Version;
         internal const int MaleLimit = 1;
         internal const int FemaleLimit = 2;
 

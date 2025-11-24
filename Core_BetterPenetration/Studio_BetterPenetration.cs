@@ -1,4 +1,4 @@
-﻿#if STUDIO
+﻿#if Studio
 using BepInEx;
 using BepInEx.Bootstrap;
 using HarmonyLib;
@@ -20,12 +20,7 @@ namespace Core_BetterPenetration
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.10")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
     [BepInDependency("com.joan6694.illusionplugins.nodesconstraints")]
-#if AI || HS2
-    [BepInProcess("StudioNEOV2")]
-#endif
-#if KK || KKS
-    [BepInProcess("CharaStudio")]
-#endif
+    [BepInProcess(KKAPI.KoikatuAPI.StudioProcessName)]
     public class Studio_BetterPenetration : BaseUnityPlugin
     {
         public const string GUID = "com.animal42069.studiobetterpenetration";

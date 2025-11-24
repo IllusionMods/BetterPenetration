@@ -27,7 +27,7 @@ namespace Core_BetterPenetration
         internal bool m_bpTamaFound = false;
         internal int tamaSelfColliders;
 
-#if !STUDIO
+#if !Studio
         internal Transform m_referenceTarget;
         internal List<DynamicBoneCollider> m_fingerColliders = new List<DynamicBoneCollider>();      
         internal bool m_danPenetration = false;
@@ -68,7 +68,7 @@ namespace Core_BetterPenetration
             InitializeDan();
             InitializeTama();
 
-#if !STUDIO
+#if !Studio
 #if AI || HS2
             InitializeFingerColliders(0.055f, 0.18f);
             InitializeMidsectionColliders();
@@ -224,7 +224,7 @@ namespace Core_BetterPenetration
             m_danOptions.squishThreshold = squishThreshold;
         }
 
-#if STUDIO
+#if Studio
         internal void SetDanTarget(Vector3 enterTarget, Vector3 endTarget, CollisionAgent targetAgent, bool isKokan, bool isOral, bool isAnal)
         {
             if (!m_danPointsFound)
@@ -641,7 +641,7 @@ namespace Core_BetterPenetration
                 lastDanDistance = m_baseDanLength;
         }
 
-#if !STUDIO
+#if !Studio
         internal void UpdateDanOptions(float danLengthSquish, float danGirthSquish, float squishThreshold, bool squishOralGirth, 
             bool simplifyVaginal, bool simplifyOral, bool rotateTamaWithShaft, bool limitCorrection, float maxCorrection)
         {
@@ -1164,7 +1164,7 @@ namespace Core_BetterPenetration
 
             ClearTama();
 
-#if !STUDIO
+#if !Studio
 
             ClearTarget();
 

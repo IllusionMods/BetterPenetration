@@ -77,7 +77,7 @@ namespace Core_BetterPenetration
             m_siriBoneR = Tools.GetTransformOfChaControl(m_collisionCharacter, BoneNames.ButtBoneR);
             m_innerKokan = Tools.GetTransformOfChaControl(m_collisionCharacter, "cf_J_Vagina_Inner"); 
 
-#if !STUDIO
+#if !Studio
             for (int index = 0; index < options.frontCollisionInfo.Count; index++)
             {
                 Transform frontCollisionPoint = Tools.GetTransformOfChaControl(m_collisionCharacter, options.frontCollisionInfo[index].name);
@@ -150,7 +150,7 @@ namespace Core_BetterPenetration
                 m_anaPullBones.Add(anaTransform);
             }
 
-#if !STUDIO
+#if !Studio
 #if AI || HS2
             InitializeFingerColliders(0.055f, 0.18f);
 #else

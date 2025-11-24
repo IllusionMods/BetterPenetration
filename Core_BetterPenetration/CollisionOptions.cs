@@ -114,7 +114,7 @@ namespace Core_BetterPenetration
             this.bellyBulgeScale = bellyBulgeScale;
         }
 
-#if STUDIO
+#if Studio
         public CollisionOptions(float maxPush, float maxPull, float pullRate, float returnRate, bool enableBellyBulge = true, float bellyBulgeScale = 1.0f)
         {
             kokanOffset = 0.0f;

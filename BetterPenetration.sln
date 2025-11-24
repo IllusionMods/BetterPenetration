@@ -4,12 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_BetterPenetration", "HS2_BetterPenetration\HS2_BetterPenetration.csproj", "{F5E096BB-2509-4431-972E-148500210D06}"
+	ProjectSection(ProjectDependencies) = postProject
+		{06A2BE07-7AB5-46CD-8A77-FDE1BFDE687C} = {06A2BE07-7AB5-46CD-8A77-FDE1BFDE687C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_BetterPenetration", "AI_BetterPenetration\AI_BetterPenetration.csproj", "{052B343B-8793-481B-B053-0A99B09A0B52}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7008D2E3-1C29-4786-A4F6-7CFD6D6D8AD9} = {7008D2E3-1C29-4786-A4F6-7CFD6D6D8AD9}
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_BetterPenetration", "Core_BetterPenetration\Core_BetterPenetration.shproj", "{CCD25B62-1040-4727-A0B5-78335FCF9F01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_BetterPenetration", "KK_BetterPenetration\KK_BetterPenetration.csproj", "{13F643E0-45CA-483E-ADFA-32634A22787E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A68BEAE5-21B9-4C45-9624-A377BB953238} = {A68BEAE5-21B9-4C45-9624-A377BB953238}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Studio_BetterPenetration", "HS2_Studio_BetterPenetration\HS2_Studio_BetterPenetration.csproj", "{06A2BE07-7AB5-46CD-8A77-FDE1BFDE687C}"
 EndProject
@@ -18,6 +27,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Studio_BetterPenetration", "KK_Studio_BetterPenetration\KK_Studio_BetterPenetration.csproj", "{A68BEAE5-21B9-4C45-9624-A377BB953238}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_BetterPenetration", "KKS_BetterPenetration\KKS_BetterPenetration.csproj", "{0FF42A1B-86EB-4CEE-BD04-DA3BB249773F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2F3F19C-14D5-477B-ADF7-EFBE76E85AD7} = {B2F3F19C-14D5-477B-ADF7-EFBE76E85AD7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Studio_BetterPenetration", "KKS_Studio_BetterPenetration\KKS_Studio_BetterPenetration.csproj", "{B2F3F19C-14D5-477B-ADF7-EFBE76E85AD7}"
 EndProject

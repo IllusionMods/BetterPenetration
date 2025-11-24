@@ -1,8 +1,17 @@
 <Project>
 	<PropertyGroup>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<!-- This is the master version, only change this one -->
+		<Version>5.0.1.4</Version>
 
-		<OutputPath>..\bin\</OutputPath>
+		<!-- Sets the 'Company' field on the dll file -->
+		<Authors>https://gitgoon.dev/IllusionMods/BetterPenetration</Authors>
+		<!-- Sets the 'Copyright' field on the dll file -->
+		<Copyright>Copyright GPL-3.0 © 2020</Copyright>
+		<!-- Sets the 'Product name' field on the dll file -->
+		<Product>BetterPenetration</Product>
+		<!-- Sets the 'File description' field on the dll file -->
+		<AssemblyTitle>Make penetration look a bit more realistic and overall improve the HScene experience</AssemblyTitle>
+
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 
 		<OutputType>Library</OutputType>
@@ -14,17 +23,76 @@
 		<FileAlignment>512</FileAlignment>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<Optimize>true</Optimize>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 	</PropertyGroup>
 
+	<!--Copy readme and license to output dir so they are included in releases-->
+	<ItemGroup>
+		<None Include="..\LICENSE" Link="LICENSE" Visible="false">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\README.md" Link="README.md" Visible="false">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(MSBuildProjectName.IndexOf(_))' != '-1'">
+		<!--Add constants based on the project name e.g. KK-KKS_Fix_DynamicBones -> KK;KKS;Fix;DynamicBones-->
+		<DefineConstants>$(MSBuildProjectName.Replace('-',';').Replace('_',';'))</DefineConstants>
+		<!--Group assemblies for the same game into the same folder so they are later zipped together as one-->
+		<OutputPath>..\bin\$(MSBuildProjectName.Substring(0, $(MSBuildProjectName.IndexOf('_'))))\</OutputPath>
+	</PropertyGroup>
+
+	<!--Delete unnecessary .deps.json file in build output since it's not used in plugins-->
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Delete Files="$(OutputPath)\$(MSBuildProjectName).deps.json" />
 	</Target>
 
+	<!--Do not copy any dlls other than the assembly itself to the build output-->
 	<Target Name="SkipAllRefs" AfterTargets="ResolveReferences">
 		<ItemGroup>
 			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
 		</ItemGroup>
+	</Target>
+
+	<!-- Create a release zip file (after successful Release build). Main game project depends on studio project so only make relases of non-studio projects -->
+	<Target Name="CreateReleaseZip" AfterTargets="Build" Condition="'$(Configuration)' == 'Release' AND '$(MSBuildProjectName.IndexOf(_Studio_))' == '-1'">
+		<PropertyGroup>
+			<CopyDir>$(OutputPath)\..\TEMP_COPY_$(AssemblyName)</CopyDir>
+		</PropertyGroup>
+		<ItemGroup>
+			<BuildFiles Include="$(OutputPath)\*"/>
+		</ItemGroup>
+
+		<RemoveDir Directories="$(CopyDir)" />
+		<Copy DestinationFolder="$(CopyDir)\BepInEx\plugins\$(Product)" SourceFiles="@(BuildFiles)" />
+		<!-- https://learn.microsoft.com/en-us/visualstudio/msbuild/zipdirectory-task?view=vs-2022 -->
+		<ZipDirectory SourceDirectory="$(CopyDir)" DestinationFile="$(OutputPath)\..\$(AssemblyName)_v$(Version).zip" Overwrite="true" />
+		<RemoveDir Directories="$(CopyDir)" />
+	</Target>
+
+	<!-- Allow using of the csproj properties defined above in the code itself -->
+	<Target Name="AddGeneratedConstantsFile" BeforeTargets="BeforeCompile;CoreCompile" Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)GeneratedConstantsFile.cs">
+		<PropertyGroup>
+			<GeneratedText>
+				<![CDATA[namespace $(RootNamespace) {
+    internal static class Constants {
+        public const string Version = "$(Version)"%3B
+        public const string Name = "$(Product)"%3B
+        public const string Description = "$(AssemblyTitle)"%3B
+        public const string Website = "$(Authors)"%3B
+        public const string Copyright = "$(Copyright)"%3B
+    }
+}]]>
+			</GeneratedText>
+			<GeneratedFilePath>$(IntermediateOutputPath)GeneratedConstantsFile.cs</GeneratedFilePath>
+		</PropertyGroup>
+		<ItemGroup>
+			<Compile Include="$(GeneratedFilePath)" />
+			<FileWrites Include="$(GeneratedFilePath)" />
+		</ItemGroup>
+		<WriteLinesToFile Lines="$(GeneratedText)" File="$(GeneratedFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true" />
 	</Target>
 </Project>

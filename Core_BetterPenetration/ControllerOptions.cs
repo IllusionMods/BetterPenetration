@@ -1,4 +1,4 @@
-﻿#if STUDIO
+﻿#if Studio
 namespace Core_BetterPenetration
 {
     class ControllerOptions

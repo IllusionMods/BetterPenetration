@@ -1,4 +1,4 @@
-﻿#if !STUDIO
+﻿#if !Studio
 using System.Collections.Generic;
 using UnityEngine;
 using System;

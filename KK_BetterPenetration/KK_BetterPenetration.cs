@@ -13,17 +13,16 @@ namespace KK_BetterPenetration
     [BepInPlugin(GUID, "KK Better Penetration", VERSION)]
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.11.1")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
-    [BepInProcess("Koikatu")]
-    [BepInProcess("KoikatuVR")]
-    [BepInProcess("Koikatsu Party")]
-    [BepInProcess("Koikatsu Party VR")]
-
+    [BepInProcess(KKAPI.KoikatuAPI.GameProcessName)]
+    [BepInProcess(KKAPI.KoikatuAPI.VRProcessName)]
+    [BepInProcess(KKAPI.KoikatuAPI.GameProcessNameSteam)]
+    [BepInProcess(KKAPI.KoikatuAPI.VRProcessNameSteam)]
     public class KK_BetterPenetration : BaseUnityPlugin
     {
         public static KK_BetterPenetration instance;
 
         public const string GUID = "animal42069.KKbetterpenetration";
-        public const string VERSION = Constants.PluginVersion;
+        public const string VERSION = Constants.Version;
         internal const int MaleLimit = 2;
         internal const int FemaleLimit = 2;
 

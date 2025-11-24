@@ -15,12 +15,12 @@ namespace HS2_BetterPenetration
     [BepInPlugin(GUID, "HS2 Better Penetration", VERSION)]
     [BepInDependency("com.deathweasel.bepinex.uncensorselector", "3.10")]
     [BepInDependency("com.rclcircuit.bepinex.modboneimplantor", "1.1.1")]
-    [BepInProcess("HoneySelect2")]
-    [BepInProcess("HoneySelect2VR")]
+    [BepInProcess(KKAPI.KoikatuAPI.GameProcessName)]
+    [BepInProcess(KKAPI.KoikatuAPI.VRProcessName)]
     public class HS2_BetterPenetration : BaseUnityPlugin
     {
         public const string GUID = "animal42069.HS2betterpenetration";
-        public const string VERSION = Constants.PluginVersion;
+        public const string VERSION = Constants.Version;
         internal const int MaleLimit = 2;
         internal const int FemaleLimit = 2;
 

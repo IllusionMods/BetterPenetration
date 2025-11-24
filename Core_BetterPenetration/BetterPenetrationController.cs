@@ -1,4 +1,4 @@
-﻿#if STUDIO
+﻿#if Studio
 using KKAPI;
 using KKAPI.Chara;
 using UnityEngine;
