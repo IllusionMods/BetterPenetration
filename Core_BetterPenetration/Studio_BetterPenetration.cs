@@ -6,6 +6,7 @@ using UnityEngine;
 using KKAPI.Studio;
 using KKAPI.Studio.UI;
 using KKAPI.Chara;
+using Studio;
 using UniRx;
 using System;
 using System.Linq;
@@ -117,6 +118,7 @@ namespace Core_BetterPenetration
                         controller.enabled = true;
                         controller.InitializeDanAgent();
                         controller.AddDanConstraints(nodeConstraintPlugin);
+                        controller.ReleaseDanBonesFromFK();
                     }
                 }
             });
@@ -315,6 +317,31 @@ namespace Core_BetterPenetration
 
                 controller.InitializeDanAgent();
                 controller.AddDanConstraints(nodeConstraintPlugin);
+                controller.ReleaseDanBonesFromFK();
+            }
+        }
+
+        // FK is restored for the saved groups a moment after a scene loads, and set again from the FK panel while
+        // posing, so the dan bones have to come back out of it whenever that happens. Runs for both on and off
+        // since the nodes AdditionalFKNodes just added start out enabled either way.
+        [HarmonyPostfix, HarmonyPatch(typeof(OCIChar), nameof(OCIChar.ActiveFK))]
+        internal static void OCIChar_ActiveFK(OCIChar __instance)
+        {
+            // Runs on the character load path for every character, so don't let an exception escape.
+            try
+            {
+                if (__instance.charInfo == null)
+                    return;
+
+                var controller = __instance.charInfo.GetComponent<BetterPenetrationController>();
+                if (controller == null)
+                    return;
+
+                controller.ReleaseDanBonesFromFK(__instance);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogError("Studio_BetterPenetration: failed to release the dan bones from FK: " + e);
             }
         }
 
