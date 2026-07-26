@@ -1,6 +1,8 @@
 ﻿#if Studio
 using KKAPI;
 using KKAPI.Chara;
+using KKAPI.Studio;
+using Studio;
 using UnityEngine;
 using ExtensibleSaveFormat;
 using System.Linq;
@@ -324,6 +326,37 @@ namespace Core_BetterPenetration
             InitializeTama();
         }
 
+        // Some of the dan bones have Studio FK nodes in the shared Body group, so a scene saved with body FK on
+        // comes back with FKCtrl holding them over the dan agent's pose. Releases only the dan bones from FK.
+        public void ReleaseDanBonesFromFK(OCIChar ociChar = null)
+        {
+            // Only once a target has been picked up, so an unused penis can still be posed by hand.
+            if (!danTargetsValid || !enabled || danAgent == null || !danAgent.m_danPointsFound ||
+                collisionAgent == null || collisionAgent.m_collisionCharacter == null)
+                return;
+
+            if (ociChar == null)
+                ociChar = ChaControl.GetOCIChar();
+
+            if (ociChar == null || ociChar.fkCtrl == null)
+                return;
+
+            foreach (var targetInfo in ociChar.fkCtrl.listBones)
+            {
+                if (targetInfo == null || !targetInfo.enable || targetInfo.gameObject == null)
+                    continue;
+
+                if (IsDanBone(targetInfo.gameObject.name))
+                    targetInfo.enable = false;
+            }
+        }
+
+        private static bool IsDanBone(string boneName)
+        {
+            return BoneNames.DanBones.Contains(boneName) || BoneNames.VirtualDanBones.Contains(boneName) ||
+                   boneName == BoneNames.BPDanEnd || boneName == BoneNames.TamaTop;
+        }
+
         public void ClearTama()
         {
             if (danAgent == null)
@@ -369,6 +402,9 @@ namespace Core_BetterPenetration
                 danAgent.AddDanCollidersToTargetAna(collisionAgent.m_collisionCharacter);
 
             danAgent.AddTamaColliders(collisionAgent.m_collisionCharacter, false);
+
+            // Now driving the shaft at a target, so it can't stay parked on an FK node.
+            ReleaseDanBonesFromFK();
         }
         
         public void SetBellyColliders(bool enable)
