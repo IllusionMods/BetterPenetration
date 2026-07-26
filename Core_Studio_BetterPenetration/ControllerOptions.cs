@@ -1,5 +1,4 @@
-﻿#if Studio
-namespace Core_BetterPenetration
+﻿namespace Core_BetterPenetration
 {
     class ControllerOptions
     {
@@ -19,4 +18,3 @@ namespace Core_BetterPenetration
         }
     }
 }
-#endif

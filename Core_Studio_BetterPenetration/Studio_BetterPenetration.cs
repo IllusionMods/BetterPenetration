@@ -1,5 +1,4 @@
-﻿#if Studio
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Bootstrap;
 using HarmonyLib;
 using UnityEngine;
@@ -368,4 +367,3 @@ namespace Core_BetterPenetration
         }
     }
 }
-#endif

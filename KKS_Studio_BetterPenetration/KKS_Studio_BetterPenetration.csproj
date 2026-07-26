@@ -8,4 +8,5 @@
 	</ItemGroup>
 
 	<Import Project="..\Core_BetterPenetration\Core_BetterPenetration.projitems" Label="Shared" />
+	<Import Project="..\Core_Studio_BetterPenetration\Core_Studio_BetterPenetration.projitems" Label="Shared" />
 </Project>

@@ -1,5 +1,4 @@
-﻿#if Studio
-using KKAPI;
+﻿using KKAPI;
 using KKAPI.Chara;
 using KKAPI.Studio;
 using Studio;
@@ -800,4 +799,3 @@ namespace Core_BetterPenetration
 
     }
 }
-#endif
