@@ -416,7 +416,9 @@ namespace Core_BetterPenetration
             if (!danTargetsValid || collisionAgent == null || collisionAgent.m_collisionCharacter == null)
                 return;
 
-            if (danEntryConstraint != null)
+            // On reload there's no explicit parent so it's looked up by name, which can match a different same-named
+            // object and stack a second link on the same bone. Skip if this bone is already constrained.
+            if (danEntryConstraint != null && (danEntryParent != null || !DanBoneAlreadyConstrained(plugin, danEntryChild)))
             {
                 var parentTransform = danEntryParent;
                 if (parentTransform == null && !danEntryParentName.IsNullOrEmpty())
@@ -434,7 +436,7 @@ namespace Core_BetterPenetration
                 }
             }
 
-            if (danEndConstraint != null)
+            if (danEndConstraint != null && (danEndParent != null || !DanBoneAlreadyConstrained(plugin, danEndChild)))
             {
                 var parentTransform = danEndParent;
                 if (parentTransform == null && !danEndParentName.IsNullOrEmpty())
@@ -451,6 +453,29 @@ namespace Core_BetterPenetration
                             .GetValue(danEndConstraint);
                 }
             }
+        }
+
+        // True if NodesConstraints already has a constraint whose child is this dan bone.
+        private bool DanBoneAlreadyConstrained(BaseUnityPlugin plugin, Transform danBone)
+        {
+            if (danBone == null)
+                return false;
+
+            IList constraintsList = Traverse.Create(plugin).Field<IList>("_constraints").Value;
+            if (constraintsList == null)
+                return false;
+
+            foreach (var constraint in constraintsList)
+            {
+                if (constraint == null)
+                    continue;
+
+                Transform childTransform = Traverse.Create(constraint).Field<Transform>("childTransform").Value;
+                if (childTransform == danBone)
+                    return true;
+            }
+
+            return false;
         }
 
         public void RemoveDanConstraints(BaseUnityPlugin plugin)
