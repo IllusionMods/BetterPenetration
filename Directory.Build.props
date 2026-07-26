@@ -4,7 +4,7 @@
 		<Version>5.0.1.5</Version>
 
 		<!-- Sets the 'Company' field on the dll file -->
-		<Authors>https://gitgoon.dev/IllusionMods/BetterPenetration</Authors>
+		<Authors>https://github.com/IllusionMods/BetterPenetration</Authors>
 		<!-- Sets the 'Copyright' field on the dll file -->
 		<Copyright>Copyright GPL-3.0 © 2020</Copyright>
 		<!-- Sets the 'Product name' field on the dll file -->
