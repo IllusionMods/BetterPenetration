@@ -36,6 +36,12 @@
 		<None Include="..\README.md" Link="README.md" Visible="false">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Include="..\Better Penetration Frequently Asked Questions.pdf" Link="Better Penetration Frequently Asked Questions.pdf" Visible="false">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\Better Penetration Studio Instructions.pdf" Link="Better Penetration Studio Instructions.pdf" Visible="false">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(MSBuildProjectName.IndexOf(_))' != '-1'">
@@ -62,12 +68,18 @@
 		<PropertyGroup>
 			<CopyDir>$(OutputPath)\..\TEMP_COPY_$(AssemblyName)</CopyDir>
 		</PropertyGroup>
+		<RemoveDir Directories="$(CopyDir)" />
+
 		<ItemGroup>
 			<BuildFiles Include="$(OutputPath)\*"/>
 		</ItemGroup>
-
-		<RemoveDir Directories="$(CopyDir)" />
 		<Copy DestinationFolder="$(CopyDir)\BepInEx\plugins\$(Product)" SourceFiles="@(BuildFiles)" />
+
+		<ItemGroup>
+			<ZipmodFiles Include="..\mods\$(MSBuildProjectName.Substring(0, $(MSBuildProjectName.IndexOf('_'))))\*"/>
+		</ItemGroup>
+		<Copy SourceFiles="@(ZipmodFiles)" DestinationFolder="$(CopyDir)\mods\BetterPenetration" />
+
 		<!-- https://learn.microsoft.com/en-us/visualstudio/msbuild/zipdirectory-task?view=vs-2022 -->
 		<ZipDirectory SourceDirectory="$(CopyDir)" DestinationFile="$(OutputPath)\..\$(AssemblyName)_v$(Version).zip" Overwrite="true" />
 		<RemoveDir Directories="$(CopyDir)" />
