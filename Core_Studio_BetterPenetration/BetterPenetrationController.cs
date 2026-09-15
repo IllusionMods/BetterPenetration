@@ -44,6 +44,7 @@ namespace Core_BetterPenetration
         public const float DefaultSquishThreshold = 0.2f;
         public const float DefaultColliderLengthScale = 1f;
         public const float DefaultColliderRadiusScale = 1f;
+        public const float DefaultLengthMultiplier = 1f;
 
 #if HS2 || AI
         public const float DefaultMaxKokanPush = 0.075f;
@@ -78,6 +79,7 @@ namespace Core_BetterPenetration
             data.data.Add("SquishThreshold", danOptions.squishThreshold);
             data.data.Add("ColliderRadiusScale", danOptions.danRadiusScale);
             data.data.Add("ColliderLengthScale", danOptions.danLengthScale);
+            data.data.Add("PenisLength", danOptions.danLengthMultiplier);
             data.data.Add("DanAutoTarget", controllerOptions.danAutoTarget);
             data.data.Add("MaxPush", collisionOptions.maxOralPush);
             data.data.Add("MaxPull", collisionOptions.maxOralPull);
@@ -150,6 +152,9 @@ namespace Core_BetterPenetration
             }
 
             danOptions = new DanOptions(colliderRadiusScale, colliderLengthScale, lengthSquish, girthSquish, squishThreshold, false, 10.0f);
+            // Not a ctor argument, so it's set after the options are built
+            if (data != null && data.data.TryGetValue("PenisLength", out var PenisLength))
+                danOptions.danLengthMultiplier = (float)PenisLength;
             collisionOptions = new CollisionOptions(maxPush, maxPull, pullRate, returnRate, enableBellyBulge, bellyBulgeScale);
             controllerOptions = new ControllerOptions(autoTarget);
             cardReloaded = true;
@@ -659,6 +664,26 @@ namespace Core_BetterPenetration
                     return;
 
                 danOptions.danLengthScale = value;
+                danAgent.UpdateDanColliders(danOptions.danRadiusScale, danOptions.danLengthScale);
+            }
+        }
+
+        // Same as DanColliderLengthScale above, but for the length
+        public float DanLengthMultiplier
+        {
+            get
+            {
+                if (danAgent == null || controllerOptions == null || !danTargetsValid)
+                    return DefaultLengthMultiplier;
+
+                return danOptions.danLengthMultiplier;
+            }
+            set
+            {
+                if (danAgent == null || !danTargetsValid)
+                    return;
+
+                danOptions.danLengthMultiplier = value;
                 danAgent.UpdateDanColliders(danOptions.danRadiusScale, danOptions.danLengthScale);
             }
         }

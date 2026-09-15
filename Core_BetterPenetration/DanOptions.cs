@@ -7,6 +7,7 @@
         public float squishThreshold;
         public float danRadiusScale;
         public float danLengthScale;
+        public float danLengthMultiplier = 1f;
 
         public bool simplifyVaginal;
         public bool simplifyOral;

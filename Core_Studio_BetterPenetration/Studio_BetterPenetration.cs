@@ -123,6 +123,15 @@ namespace Core_BetterPenetration
             });
             StudioAPI.GetOrCreateCurrentStateCategory(StudioCategoryName).AddControl(bpEnable);
 
+            // Set up the same way as the collider sliders below
+            var penisLength = new CurrentStateCategorySlider("Penis Length", c => StudioAPI.GetSelectedControllers<BetterPenetrationController>().First().DanLengthMultiplier, 0.5f, 1.5f);
+            penisLength.Value.Subscribe(value =>
+            {
+                foreach (var controller in StudioAPI.GetSelectedControllers<BetterPenetrationController>())
+                    controller.DanLengthMultiplier = value;
+            });
+            StudioAPI.GetOrCreateCurrentStateCategory(StudioCategoryName).AddControl(penisLength);
+
             var colliderRadiusScale = new CurrentStateCategorySlider("Collilder Radius Scale", c => StudioAPI.GetSelectedControllers<BetterPenetrationController>().First().DanColliderRadiusScale, 0.5f, 1.5f);
             colliderRadiusScale.Value.Subscribe(value =>
             {
