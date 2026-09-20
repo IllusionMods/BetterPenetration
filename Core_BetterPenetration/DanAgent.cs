@@ -46,6 +46,7 @@ namespace Core_BetterPenetration
 #endif
 
         internal float m_baseDanLength = DefaultDanLength;
+        internal Vector3 m_danRestSegment;
         internal float lastDanDistance;
         internal Vector3 lastDanEndVector = Vector3.zero;
         internal Vector3 lastDanEnd = Vector3.zero;
@@ -113,6 +114,7 @@ namespace Core_BetterPenetration
             m_danPoints = new DanPoints(danTransforms, tamaTop, danEnd, virtualDanTransforms);
             m_danPointsFound = true;
             m_baseDanLength = Vector3.Distance(danTransforms[0].position, danTransforms[1].position) * (danTransforms.Count - 1);
+            m_danRestSegment = danTransforms[0].InverseTransformVector(danTransforms[1].position - danTransforms[0].position);
             lastDanDistance = m_baseDanLength;
             lastDanEndVector = Vector3.zero;
 
@@ -229,6 +231,9 @@ namespace Core_BetterPenetration
         {
             if (!m_danPointsFound)
                 return;
+
+            // Re-measure in case the penis was resized after the agent was built
+            m_baseDanLength = m_danPoints.danPoints[0].transform.TransformVector(m_danRestSegment).magnitude * (m_danPoints.danPoints.Count - 1);
 
             Vector3 danStartPosition = m_danPoints.GetDanStartPosition();
             Vector3 danTargetVector = Vector3.Normalize(enterTarget - danStartPosition);
