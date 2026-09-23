@@ -201,7 +201,7 @@ namespace Core_BetterPenetration
             for (var collider = 0; collider < m_danColliders.Count; collider++)
             {
                 m_danColliders[collider].m_Radius = m_danColliderRadius[collider] * m_danOptions.danRadiusScale;
-                m_danColliders[collider].m_Height = m_danColliderLength[collider] * m_danOptions.danLengthScale;
+                m_danColliders[collider].m_Height = m_danColliderLength[collider] * m_danOptions.danLengthScale * m_danOptions.danLengthMultiplier;
             }
 
             if (m_virtualDanColliders == null || m_virtualDanColliders.Count < 1 || m_virtualDanColliders.Count > m_danColliders.Count)
@@ -233,7 +233,7 @@ namespace Core_BetterPenetration
                 return;
 
             // Re-measure in case the penis was resized after the agent was built
-            m_baseDanLength = m_danPoints.danPoints[0].transform.TransformVector(m_danRestSegment).magnitude * (m_danPoints.danPoints.Count - 1);
+            m_baseDanLength = m_danPoints.danPoints[0].transform.TransformVector(m_danRestSegment).magnitude * (m_danPoints.danPoints.Count - 1) * m_danOptions.danLengthMultiplier;
 
             Vector3 danStartPosition = m_danPoints.GetDanStartPosition();
             Vector3 danTargetVector = Vector3.Normalize(enterTarget - danStartPosition);
