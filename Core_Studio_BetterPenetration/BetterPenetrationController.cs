@@ -70,6 +70,19 @@ namespace Core_BetterPenetration
 
         internal const ControllerOptions.AutoTarget DefaultDanAutoTarget = ControllerOptions.AutoTarget.Off;
 
+        /// <summary>
+        /// Switch this controller on or off. The card keeps its own copy of the flag and OnReload copies
+        /// it back over the component, so setting the component alone is undone by the next reload.
+        /// </summary>
+        public void SetEnabled(bool value)
+        {
+            enabled = value;
+
+            PluginData data = GetExtendedData() ?? new PluginData { version = 1 };
+            data.data["Enabled"] = value;
+            SetExtendedData(data);
+        }
+
         protected override void OnCardBeingSaved(GameMode currentGameMode)
         {
             PluginData data = new PluginData { version = 1 };
