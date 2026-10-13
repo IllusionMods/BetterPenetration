@@ -107,14 +107,20 @@ namespace Core_BetterPenetration
             {
                 foreach (var controller in StudioAPI.GetSelectedControllers<BetterPenetrationController>())
                 {
+                    // The switch is also written when the selection changes, carrying back the state it
+                    // has just read. The off branch clears the dan agent, so acting on those writes
+                    // switches BP off for a character that was only selected.
+                    if (controller.enabled == value)
+                        continue;
+
                     if (value == false)
                     {
                         controller.ClearDanAgent();
-                        controller.enabled = false;
+                        controller.SetEnabled(false);
                     }
                     else
                     {
-                        controller.enabled = true;
+                        controller.SetEnabled(true);
                         controller.InitializeDanAgent();
                         controller.AddDanConstraints(nodeConstraintPlugin);
                         controller.ReleaseDanBonesFromFK();
