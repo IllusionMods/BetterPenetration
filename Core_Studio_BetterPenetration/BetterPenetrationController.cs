@@ -395,6 +395,50 @@ namespace Core_BetterPenetration
             danAgent.AddTamaColliders(collisionAgent.m_collisionCharacter);
         }
 
+        // NodesConstraints only reports a constraint when it is added, so toggling one later, by
+        // hand or from Timeline, never reaches BP. Work the target out from what is enabled now.
+        internal void CheckConstraintTarget(BaseUnityPlugin plugin)
+        {
+            if (!danTargetsValid || danEntryChild == null)
+                return;
+
+            IList constraintsList = Traverse.Create(plugin).Field<IList>("_constraints").Value;
+            if (constraintsList == null)
+                return;
+
+            // Last enabled one wins, same as AfterAddConstraint leaves behind when a scene has two.
+            Transform danEntryParent = null;
+            foreach (var constraint in constraintsList)
+            {
+                if (constraint == null)
+                    continue;
+
+                Traverse constraintTraverse = Traverse.Create(constraint);
+                if (!constraintTraverse.Field<bool>("enabled").Value ||
+                    constraintTraverse.Field<Transform>("childTransform").Value != danEntryChild)
+                    continue;
+
+                Transform parentTransform = constraintTraverse.Field<Transform>("parentTransform").Value;
+                if (parentTransform != null)
+                    danEntryParent = parentTransform;
+            }
+
+            if (danEntryParent == null)
+            {
+                RemoveCollisionAgent(isKokan, isAna);
+                return;
+            }
+
+            var targetChaControl = danEntryParent.GetComponentInParent<ChaControl>();
+            if (targetChaControl == null ||
+                (collisionAgent != null && collisionAgent.m_collisionCharacter == targetChaControl))
+                return;
+
+            SetCollisionAgent(targetChaControl, danEntryParent.name == BoneNames.BPKokanTarget,
+                              danEntryParent.name == BoneNames.AnaTarget,
+                              danEntryParent.name == BoneNames.HeadTarget);
+        }
+
         public void SetCollisionAgent(ChaControl target, bool kokanTarget, bool anaTarget, bool oralTarget)
         {
             if (danAgent == null || controllerOptions == null || !danTargetsValid)
