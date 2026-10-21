@@ -395,6 +395,14 @@ namespace Core_BetterPenetration
             danAgent.AddTamaColliders(collisionAgent.m_collisionCharacter);
         }
 
+        // Off and on again: off puts the bones back to the bind pose through InitTransforms, on
+        // re-seats the particles there and wakes a bone that had gone quiet.
+        private static void CycleParticles(CollisionAgent agent)
+        {
+            agent.EnableParticles(false);
+            agent.EnableParticles(true);
+        }
+
         // NodesConstraints only reports a constraint when it is added, so toggling one later, by
         // hand or from Timeline, never reaches BP. Work the target out from what is enabled now.
         internal void CheckConstraintTarget(BaseUnityPlugin plugin)
@@ -448,6 +456,8 @@ namespace Core_BetterPenetration
             {
                 danAgent.RemoveDanCollidersFromTarget(collisionAgent.m_collisionCharacter, isKokan, isAna);
                 danAgent.RemoveTamaColliders();
+                // Removing the colliders leaves the bones in the shape they were pushed into.
+                CycleParticles(collisionAgent);
             }
 
             collisionAgent = new CollisionAgent(target, collisionOptions);
@@ -463,6 +473,9 @@ namespace Core_BetterPenetration
                 danAgent.AddDanCollidersToTargetAna(collisionAgent.m_collisionCharacter);
 
             danAgent.AddTamaColliders(collisionAgent.m_collisionCharacter, false);
+
+            // New colliders move nothing, so a bone that has gone quiet never tests them.
+            CycleParticles(collisionAgent);
 
             // Now driving the shaft at a target, so it can't stay parked on an FK node.
             ReleaseDanBonesFromFK();
@@ -486,6 +499,7 @@ namespace Core_BetterPenetration
 
             danAgent.RemoveDanCollidersFromTarget(collisionAgent.m_collisionCharacter, wasKokan, wasAna);
             danAgent.RemoveTamaColliders();
+            CycleParticles(collisionAgent);
 
             collisionAgent = null;
         }
