@@ -312,6 +312,14 @@ namespace Core_BetterPenetration
 
         internal static void AfterApplyNodesConstraints()
         {
+            foreach (var controller in BetterPenetrationController.controllers)
+            {
+                if (controller == null)
+                    continue;
+
+                controller.CheckConstraintTarget(nodeConstraintPlugin);
+            }
+
             if (!reloadConstraints)
                 return;
 
