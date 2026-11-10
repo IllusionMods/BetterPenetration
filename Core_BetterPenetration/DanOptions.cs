@@ -15,6 +15,10 @@
         public bool squishOralGirth;
         public bool rotateTamaWithShaft;
 
+        // When the look-at target identifies the orifice (vaginal or anal), only add the dan colliders to that orifice.
+        // Set to false to restore the old behaviour of adding them to both orifices when a single dan is in the scene.
+        public bool isolateOrificeColliders = true;
+
         public bool limitCorrection;
         public float maxCorrection;
 

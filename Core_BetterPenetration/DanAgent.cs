@@ -975,10 +975,15 @@ namespace Core_BetterPenetration
             if (!isInScene || !m_danPointsFound)
                 return;
 
+            // The look-at target tells us which orifice this animation uses, so only that orifice gets the dan colliders.
+            // A null target gives no hint, so it keeps the old behaviour (both orifices when there is a single dan).
+            bool skipOpposite = twoDans || (m_danOptions.isolateOrificeColliders && lookAtTransform != null);
+            UnityEngine.Debug.Log($"BP Dan colliders: lookAt={(lookAtTransform != null ? lookAtTransform.name : "null")} skipOpposite={skipOpposite}");
+
             if (lookAtTransform == null || lookAtTransform.name == LookTargets.KokanTarget)
-                AddDanCollidersToKokan(firstTarget, twoDans);
+                AddDanCollidersToKokan(firstTarget, skipOpposite);
             else if (lookAtTransform.name == LookTargets.AnaTarget)
-                AddDanCollidersToAna(firstTarget, twoDans);
+                AddDanCollidersToAna(firstTarget, skipOpposite);
 
             AddTamaColliders(firstTarget.m_collisionCharacter, false);
 #if HS2 || AI
@@ -1019,7 +1024,7 @@ namespace Core_BetterPenetration
                 m_referenceTarget = firstTarget.m_bpAnaTarget;
         }
 
-        internal void AddDanCollidersToKokan(CollisionAgent target, bool twoDans)
+        internal void AddDanCollidersToKokan(CollisionAgent target, bool skipOpposite)
         {
             foreach (var danCollider in m_danColliders)
             {
@@ -1032,7 +1037,7 @@ namespace Core_BetterPenetration
                         dynamicBone.m_Colliders.Add(danCollider);
                 }
 
-                if (!twoDans && target.m_anaDynamicBones != null && !target.m_anaDynamicBones.m_Colliders.Contains(danCollider))
+                if (!skipOpposite && target.m_anaDynamicBones != null && !target.m_anaDynamicBones.m_Colliders.Contains(danCollider))
                     target.m_anaDynamicBones.m_Colliders.Add(danCollider);
             }
 
@@ -1046,7 +1051,7 @@ namespace Core_BetterPenetration
             }
         }
 
-        internal void AddDanCollidersToAna(CollisionAgent target, bool twoDans)
+        internal void AddDanCollidersToAna(CollisionAgent target, bool skipOpposite)
         {
             if (target.m_anaDynamicBones == null)
                 return;
@@ -1059,7 +1064,7 @@ namespace Core_BetterPenetration
                 if (!target.m_anaDynamicBones.m_Colliders.Contains(danCollider))
                     target.m_anaDynamicBones.m_Colliders.Add(danCollider);
 
-                if (!twoDans)
+                if (!skipOpposite)
                 {
                     foreach (DynamicBone dynamicBone in target.m_kokanDynamicBones)
                     {
