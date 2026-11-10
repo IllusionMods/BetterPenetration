@@ -305,8 +305,23 @@ namespace Core_BetterPenetration
             if (collisionAgents.Count > 1 && collisionAgents[1].m_collisionCharacter.visibleAll && collisionAgents[1].m_collisionCharacter.objTop != null)
                 secondAgent = collisionAgents[1];
 
-            ClearFingerColliders(danAgent, firstAgent, secondAgent);
-            AddFingerColliders(animation, danAgent, firstAgent, secondAgent);
+            DanAgent secondDanAgent = GetSecondDanAgent();
+
+            ClearFingerColliders(danAgent, firstAgent, secondAgent, secondDanAgent);
+            AddFingerColliders(animation, danAgent, firstAgent, secondAgent, secondDanAgent);
+        }
+
+        // The second male, only when it is actually present in the scene
+        internal static DanAgent GetSecondDanAgent()
+        {
+            if (danAgents == null || danAgents.Count < 2 || danAgents[1] == null)
+                return null;
+
+            ChaControl character = danAgents[1].m_danCharacter;
+            if (character == null || !character.visibleAll || character.objTop == null)
+                return null;
+
+            return danAgents[1];
         }
 
         internal static void ClearFingerColliders()
@@ -321,10 +336,10 @@ namespace Core_BetterPenetration
             if (collisionAgents.Count > 1)
                 secondAgent = collisionAgents[1];
 
-            ClearFingerColliders(danAgent, firstAgent, secondAgent);
+            ClearFingerColliders(danAgent, firstAgent, secondAgent, GetSecondDanAgent());
         }
 
-        internal static void ClearFingerColliders(DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null)
+        internal static void ClearFingerColliders(DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null, DanAgent secondDanAgent = null)
         {
             if (firstAgent == null)
                 return;
@@ -334,6 +349,9 @@ namespace Core_BetterPenetration
             if (danAgent != null)
                 danAgent.RemoveFingerColliders(firstAgent);
 
+            if (secondDanAgent != null)
+                secondDanAgent.RemoveFingerColliders(firstAgent);
+
             if (secondAgent == null)
                 return;
 
@@ -342,31 +360,54 @@ namespace Core_BetterPenetration
 
             if (danAgent != null)
                 danAgent.RemoveFingerColliders(secondAgent);
+
+            if (secondDanAgent != null)
+                secondDanAgent.RemoveFingerColliders(secondAgent);
         }
 
-        internal static void AddFingerColliders(string animation, DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null)
+        internal static void AddFingerColliders(string animation, DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null, DanAgent secondDanAgent = null)
         {
             if (animation == null || firstAgent == null)
                 return;
 
+            // One male, one female: vaginal specific
             if (danAgent != null && secondAgent == null && BoneNames.maleFingerAnimationNames.Contains(animation))
             {
                 danAgent.AddFingerColliders(firstAgent);
                 return;
             }
 
+            // One male, one female: anal specific
             if (danAgent != null && secondAgent == null && BoneNames.maleAnaFingerAnimationNames.Contains(animation))
             {
                 danAgent.AddAnaFingerColliders(firstAgent);
                 return;
             }
 
+            // One male, two females: the male's fingers reach both females
+            if (danAgent != null && secondAgent != null && BoneNames.maleFingerTwoFemaleAnimationNames.Contains(animation))
+            {
+                danAgent.AddFingerColliders(firstAgent);
+                danAgent.AddFingerColliders(secondAgent);
+                return;
+            }
+
+            // Two males, one female: both males' fingers reach the female
+            if (danAgent != null && secondDanAgent != null && secondAgent == null && BoneNames.twoMaleFingerAnimationNames.Contains(animation))
+            {
+                danAgent.AddFingerColliders(firstAgent);
+                secondDanAgent.AddFingerColliders(firstAgent);
+                return;
+            }
+
+            // One female: vaginal specific
             if (BoneNames.femaleSelfFingerAnimationNames.Contains(animation))
             {
                 firstAgent.AddFingerColliders(firstAgent);
                 return;
             }
 
+            // One female: anal specific
             if (BoneNames.femaleAnaSelfFingerAnimationNames.Contains(animation))
             {
                 firstAgent.AddAnaFingerColliders(firstAgent);
