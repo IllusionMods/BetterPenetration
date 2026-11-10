@@ -76,8 +76,18 @@ namespace Core_BetterPenetration
         internal static readonly List<string> dildoAnimationNames = new List<string> {"ait_f_02" };
         internal static readonly List<string> tentacleAnimationNames = new List<string> {"h2t_f_09", "h2t_f_10" };
         internal static readonly List<string> anaVibeAnimationNames = new List<string> { "ait_f_13", "ait_f_14", "aia_f_09", "aia_f_16", "aia_f_9320", "aia_f_9321", "aia_f_9322" };
-        internal static readonly List<string> maleTongueAnimationNames = new List<string> { "aia_f_04", "aia_f_06", "aia_f_10", "aia_f_13", "aia_f_18", "aia_f_19", "aia_f_23", "aia_f_24", "aia_f_26", "aia_f_2037", "aia_f_2030", "aia_f_2044", "aia_f_2041", "aia_f_9325", "aia_f_9331" };
 
+        // tongue colliders
+        internal static readonly List<string> maleTongueAnimationNames = new List<string> { "aia_f_04", "aia_f_06", "aia_f_10", "aia_f_13", "aia_f_18", "aia_f_19", "aia_f_23", "aia_f_24", "aia_f_26", "aia_f_2037", "aia_f_2030", "aia_f_2044", "aia_f_2041", "aia_f_9325", "aia_f_9331" };
+        internal static readonly List<string> maleAnaTongueAnimationNames = new List<string> { "aia_f_08" };
+        internal static readonly List<string> lesbianTongueAnimationNames = new List<string> { "ail_f1_02", "ail_f2_02", "ail_f1_03", "ail_f2_03", "ail_f1_04", "ail_f2_04", "aia_f_04", "aia_m_04", "aia_f_06", "aia_m_06", "aia_f_10", "aia_m_10", "aia_f_13", "aia_m_13", "aia_f_19", "aia_m_19", "aia_f_24", "aia_m_24", "aia_f_26", "aia_m_26", "aia_f_2037", "aia_m_2037", "aia_f_2030", "aia_m_2030", "aia_f_2044", "aia_m_2044", "aia_f_2041", "aia_m_2041", "aia_f_9325", "aia_m_9325" };
+        internal static readonly List<string> lesbianAnaTongueAnimationNames = new List<string>();
+        internal static readonly List<string> maleTongueTwoFemaleAnimationNames = new List<string> { "ai3p_f1_00", "ai3p_f2_01", "h2_mf2_f1_08", "h2_mf2_f2_09" };
+        internal static readonly List<string> maleAnaTongueTwoFemaleAnimationNames = new List<string>();
+        internal static readonly List<string> twoMaleTongueAnimationNames = new List<string>();
+        internal static readonly List<string> twoMaleAnaTongueAnimationNames = new List<string>();
+
+        // finger colliders
         internal static readonly List<string> maleFingerAnimationNames = new List<string> { "aia_f_03", "aia_f_05", "aia_f_14", "aia_f_21", "aia_f_2035", "aia_f_2042", "aia_f_2034", "aia_f_2029", "aia_f_2045", "aia_f_2032", "aia_f_2028", "aia_f_9339", "h2a_f_00", "h2a_f_01", "aia_f_9315", "aia_f_9317", "aia_f_9332" };
         internal static readonly List<string> maleAnaFingerAnimationNames = new List<string> { "aia_f_2036", "aia_f_9301", "aia_f_9302", "aia_f_9303", "aia_f_9304", "aia_f_9305", "aia_f_9306", "aia_f_9307", "aia_f_9308", "aia_f_9309", "aia_f_9310", "aia_f_9311", "aia_f_9312", "aia_f_9313", "aia_f_9316" };
         internal static readonly List<string> maleFingerTwoFemaleAnimationNames = new List<string> { "h2_mf2_f1_02", "h2_mf2_f2_05" };
@@ -85,7 +95,8 @@ namespace Core_BetterPenetration
         internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "aia_f_07", "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09", "h2t_f_02", "ait_f_4019", "ait_f_4008", "ait_f_4016", "ait_f_4018" };
         internal static readonly List<string> femaleAnaSelfFingerAnimationNames = new List<string> { "aia_f_9314" };
         internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01", "aia_f_03", "aia_m_03", "aia_f_05", "aia_m_05", "aia_f_21", "aia_m_21", "h2a_f_01", "h2a_m_01", "aia_f_2035", "aia_m_2035", "aia_f_2042", "aia_m_2042", "aia_f_2034", "aia_m_2034", "aia_f_2029", "aia_m_2029", "aia_f_2045", "aia_m_2045", "aia_f_2032", "aia_m_2032", "aia_f_2028", "aia_m_2028", "aia_f_9339", "aia_m_9339" };
-        internal static readonly List<string> lesbianTongueAnimationNames = new List<string> { "ail_f1_02", "ail_f2_02", "ail_f1_03", "ail_f2_03", "ail_f1_04", "ail_f2_04", "aia_f_04", "aia_m_04", "aia_f_06", "aia_m_06", "aia_f_10", "aia_m_10", "aia_f_13", "aia_m_13", "aia_f_19", "aia_m_19", "aia_f_24", "aia_m_24", "aia_f_26", "aia_m_26", "aia_f_2037", "aia_m_2037", "aia_f_2030", "aia_m_2030", "aia_f_2044", "aia_m_2044", "aia_f_2041", "aia_m_2041", "aia_f_9325", "aia_m_9325" };
+
+
     }
 #endif
 

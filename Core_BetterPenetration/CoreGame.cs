@@ -222,6 +222,18 @@ namespace Core_BetterPenetration
             danAgents[maleNum].UpdateDanOptions(danLengthSquish, danGirthSquish, squishThreshold, squishOralGirth, simplifyVaginal, simplifyOral, rotateTamaWithShaft, limitCorrection, maxCorrection);
         }
 
+        public static void UpdateIsolateOrificeColliders(bool isolate)
+        {
+            if (danAgents == null)
+                return;
+
+            foreach (var danAgent in danAgents)
+            {
+                if (danAgent != null && danAgent.m_danOptions != null)
+                    danAgent.m_danOptions.isolateOrificeColliders = isolate;
+            }
+        }
+
         public static void UpdateCollisionOptions(int femaleNum, CollisionOptions options)
         {
             if (femaleNum >= collisionAgents.Count || collisionAgents[femaleNum] == null)
@@ -558,6 +570,8 @@ namespace Core_BetterPenetration
 #if HS2
                 new ItemColliderInfo(BoneNames.maleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.lesbianTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.vibeAnimationNames, BoneNames.vibeBones, DynamicBoneColliderBase.Direction.Y, 0.15f, 0.56f),
                 new ItemColliderInfo(BoneNames.vibe2AnimationNames, BoneNames.vibe2Bones, DynamicBoneColliderBase.Direction.Y, 0.15f, 0.56f),
                 new ItemColliderInfo(BoneNames.dildoAnimationNames, BoneNames.dildoBones, DynamicBoneColliderBase.Direction.Y, 0.172f, 0.576f),
@@ -565,6 +579,8 @@ namespace Core_BetterPenetration
 #else
                 new ItemColliderInfo(BoneNames.maleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.lesbianTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.vibeAnimationNames, BoneNames.vibeBones, DynamicBoneColliderBase.Direction.Y, 0.1f, 0.5f),
                 new ItemColliderInfo(BoneNames.vibe2AnimationNames, BoneNames.vibe2Bones, DynamicBoneColliderBase.Direction.Y, 0.1f, 0.5f),
                 new ItemColliderInfo(BoneNames.dildoAnimationNames, BoneNames.dildoBones, DynamicBoneColliderBase.Direction.Y, 0.115f, 0.5f),
@@ -578,9 +594,17 @@ namespace Core_BetterPenetration
             anaItemColliderInfo = new List<ItemColliderInfo>
             {
 #if HS2
+                new ItemColliderInfo(BoneNames.maleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.lesbianAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleAnaTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.anaVibeAnimationNames, BoneNames.anaVibeBones, DynamicBoneColliderBase.Direction.Y, 0.125f, 0.4f),
                 new ItemColliderInfo(BoneNames.tentacleAnimationNames, BoneNames.anaTentacleBones, DynamicBoneColliderBase.Direction.X, 0.164f, 0.656f)
 #else
+                new ItemColliderInfo(BoneNames.maleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.lesbianAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleAnaTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.anaVibeAnimationNames, BoneNames.anaVibeBones, DynamicBoneColliderBase.Direction.Y, 0.09f, 0.36f),
                 new ItemColliderInfo(BoneNames.tentacleAnimationNames, BoneNames.tentacleBones, DynamicBoneColliderBase.Direction.X, 0.115f, 0.625f)
 #endif
