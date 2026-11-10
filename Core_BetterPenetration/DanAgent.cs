@@ -687,7 +687,7 @@ namespace Core_BetterPenetration
                 AdjustDanToTargetKokan(targetAgent, twoDans);
             else if (m_referenceTarget.name == LookTargets.AnaTarget || m_referenceTarget.name == LookTargets.BPAnaTarget)
                 AdjustDanToTargetAna(targetAgent, twoDans);
-            else if (m_referenceTarget.name == LookTargets.HeadTarget)
+            else if (m_referenceTarget.name == LookTargets.HeadTarget || m_referenceTarget.name == LookTargets.HeadTarget2)
                 AdjustDanToTargetHead(targetAgent, twoDans);
             else
                 AdjustDanToTargetNull(targetAgent);
@@ -847,7 +847,7 @@ namespace Core_BetterPenetration
                     else
                         danEndTarget = ConstrainDanToBody(targetAgent, danStart, danTargetVector, danLength);
                 }
-                else if (m_referenceTarget.name == LookTargets.HeadTarget)
+                else if (m_referenceTarget.name == LookTargets.HeadTarget || m_referenceTarget.name == LookTargets.HeadTarget2)
                 {
                     if (m_danOptions.simplifyOral && m_bpDanPointsFound)
                         danEndTarget = innerLimit;
@@ -1117,6 +1117,21 @@ namespace Core_BetterPenetration
                     if (collider != null && !dynamicBone.m_Colliders.Contains(collider))
                         dynamicBone.m_Colliders.Add(collider);
                 }
+            }
+        }
+
+        internal void AddAnaFingerColliders(CollisionAgent target)
+        {
+            if (m_fingerColliders == null || m_fingerColliders.Count == 0)
+                return;
+
+            if (target.m_anaDynamicBones == null)
+                return;
+
+            foreach (var collider in m_fingerColliders)
+            {
+                if (collider != null && !target.m_anaDynamicBones.m_Colliders.Contains(collider))
+                    target.m_anaDynamicBones.m_Colliders.Add(collider);
             }
         }
 
