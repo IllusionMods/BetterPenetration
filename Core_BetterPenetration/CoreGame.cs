@@ -352,20 +352,12 @@ namespace Core_BetterPenetration
             if (danAgent != null && secondAgent == null && BoneNames.maleFingerAnimationNames.Contains(animation))
             {
                 danAgent.AddFingerColliders(firstAgent);
-
-                if (secondAgent != null)
-                    danAgent.AddFingerColliders(secondAgent);
-
                 return;
             }
 
             if (danAgent != null && secondAgent == null && BoneNames.maleAnaFingerAnimationNames.Contains(animation))
             {
                 danAgent.AddAnaFingerColliders(firstAgent);
-
-                if (secondAgent != null)
-                    danAgent.AddAnaFingerColliders(secondAgent);
-
                 return;
             }
 
