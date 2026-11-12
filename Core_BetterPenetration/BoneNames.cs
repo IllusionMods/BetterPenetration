@@ -6,6 +6,7 @@ namespace Core_BetterPenetration
     static class LookTargets
     {
         internal const string HeadTarget = "k_f_head_00";
+        internal const string HeadTarget2 = "k_f_head_01";
         internal const string KokanTarget = "k_f_kokan_00";
         internal const string BPKokanTarget = "cf_J_Vagina_root";
         internal const string BPAnaTarget = "cf_J_Ana_Root";
@@ -51,7 +52,7 @@ namespace Core_BetterPenetration
         internal static readonly List<string> DanBones = new List<string> { "cm_J_dan101_00", "cm_J_dan102_00", "cm_J_dan103_00", "cm_J_dan104_00", "cm_J_dan105_00", "cm_J_dan106_00", "cm_J_dan107_00", "cm_J_dan108_00", "cm_J_dan109_00" };
         internal static readonly List<string> VirtualDanBones = new List<string> { "cm_J_vdan102_00", "cm_J_vdan104_00", "cm_J_vdan106_00", "cm_J_vdan108_00"};
         internal static readonly List<string> TamaBones = new List<string> { "cm_J_dan_Pivot_f_top", "cm_J_dan_Pivot_f_L", "cm_J_dan_Pivot_f_R"};
-        internal static readonly List<string> FingerColliders = new List<string> { "cf_J_Hand_Index02_R", "cf_J_Hand_Index03_R", "cf_J_Hand_Middle02_R", "cf_J_Hand_Middle03_R", "cf_J_Hand_Ring02_R", "cf_J_Hand_Ring03_R" };
+        internal static readonly List<string> FingerColliders = new List<string> { "cf_J_Hand_Index02_R", "cf_J_Hand_Index03_R", "cf_J_Hand_Middle02_R", "cf_J_Hand_Middle03_R", "cf_J_Hand_Ring02_R", "cf_J_Hand_Ring03_R", "cf_J_Hand_Index02_L", "cf_J_Hand_Index03_L", "cf_J_Hand_Middle02_L", "cf_J_Hand_Middle03_L", "cf_J_Hand_Ring02_L", "cf_J_Hand_Ring03_L" };
         internal static readonly List<string> MidSectionColliders = new List<string> { "cf_hit_Kosi02_s", "cf_hit_LegUp01_s_L", "cf_hit_LegUp01_s_R"};
         internal static readonly List<string> BodyColliders = new List<string> { "cf_hit_Kosi02_s", "cf_hit_LegLow02_s_L", "cf_hit_LegLow02_s_R", "cf_hit_LegUp01_s_L", "cf_hit_LegUp01_s_R", 
                                                                                  "cf_J_Spine01_s", "cf_J_Spine02_s", "cf_J_Spine03_s", "cf_hit_Mune02_s_L", "cf_hit_Mune02_s_R", 
@@ -61,6 +62,8 @@ namespace Core_BetterPenetration
         internal static readonly List<string> animationAdjustmentList = new List<string> { "ais_f_00", "ais_f_01", "ais_f_12", "ais_f_19", "ais_f_20" };
         internal static readonly List<string> anaPullExceptionList = new List<string> { "ais_f_13", "ais_f_31" };
 
+
+        internal static readonly List<string> tongueBones = new List<string> { "cf_J_Tang_S_00", "cf_J_Tang_S_01_at", "cf_J_Tang_S_02_at", "cf_J_Tang_S_04", "cf_J_Tang_L_04_01", "cf_J_Tang_R_04_01", "cf_J_Tang_S_06", "cf_J_Tang_L_06_01", "cf_J_Tang_R_06_01", "cf_J_Tang_S_08", "cf_J_Tang_L_08_01", "cf_J_Tang_R_08_01" };
         internal static readonly List<string> vibeBones = new List<string> { "J_vibe_00", "J_vibe_01", "J_vibe_02", "J_vibe_03", "J_vibe_04", "J_vibe_05"};
         internal static readonly List<string> vibe2Bones = new List<string> { "j_ai_hi_hitem02_02", "j_ai_hi_hitem02_03", "j_ai_hi_hitem02_04", "j_ai_hi_hitem02_05", "j_ai_hi_hitem02_06", "j_ai_hi_hitem02_07" };
         internal static readonly List<string> dildoBones = new List<string> { "J_dildo_00", "J_dildo_01", "J_dildo_02", "J_dildo_03", "J_dildo_04", "J_dildo_05" };
@@ -68,15 +71,33 @@ namespace Core_BetterPenetration
         internal static readonly List<string> anaVibeBones = new List<string> { "J_analvibe_ball_03", "J_analvibe_ball_04", "J_analvibe_ball_05", "J_analvibe_ball_06", "J_analvibe_ball_07", "J_analvibe_ball_08", "J_analvibe_ball_09", "J_analvibe_ball_10" };
         internal static readonly List<string> anaTentacleBones = new List<string> { "j_S_ana_01", "j_S_ana_02", "j_S_ana_03", "j_S_ana_04", "j_S_ana_05" };
 
-        internal static readonly List<string> vibeAnimationNames = new List<string> { "ait_f_14", "aia_f_15", "aia_f_16", "aia_f_20" };
+        internal static readonly List<string> vibeAnimationNames = new List<string> { "aia_f_15", "aia_f_16", "aia_f_20", "aia_f_2043", "ait_f_14" };
         internal static readonly List<string> vibe2AnimationNames = new List<string> {"ait_f_13" };
         internal static readonly List<string> dildoAnimationNames = new List<string> {"ait_f_02" };
         internal static readonly List<string> tentacleAnimationNames = new List<string> {"h2t_f_09", "h2t_f_10" };
-        internal static readonly List<string> anaVibeAnimationNames = new List<string> { "ait_f_13", "ait_f_14", "aia_f_09", "aia_f_16" };
+        internal static readonly List<string> anaVibeAnimationNames = new List<string> { "ait_f_13", "ait_f_14", "aia_f_09", "aia_f_16", "aia_f_9320", "aia_f_9321", "aia_f_9322" };
 
-        internal static readonly List<string> maleFingerAnimationNames = new List<string> { "aia_f_03", "aia_f_05", "aia_f_14", "aia_f_21", "h2a_f_00", "h2a_f_01", "h2_mf2_f1_02", "h2_mf2_f2_05" };
-        internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "aia_f_07", "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09"};
-        internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01" };
+        // tongue colliders
+        internal static readonly List<string> maleTongueAnimationNames = new List<string> { "aia_f_04", "aia_f_06", "aia_f_10", "aia_f_13", "aia_f_18", "aia_f_19", "aia_f_23", "aia_f_24", "aia_f_26", "aia_f_2037", "aia_f_2030", "aia_f_2044", "aia_f_2041", "aia_f_9325", "aia_f_9331" };
+        internal static readonly List<string> maleAnaTongueAnimationNames = new List<string> { "aia_f_08", "aia_f_2038" };
+        internal static readonly List<string> lesbianTongueAnimationNames = new List<string> { "ail_f1_02", "ail_f2_02", "ail_f1_03", "ail_f2_03", "ail_f1_04", "ail_f2_04", "aia_f_04", "aia_m_04", "aia_f_06", "aia_m_06", "aia_f_10", "aia_m_10", "aia_f_13", "aia_m_13", "aia_f_19", "aia_m_19", "aia_f_24", "aia_m_24", "aia_f_26", "aia_m_26", "aia_f_2037", "aia_m_2037", "aia_f_2030", "aia_m_2030", "aia_f_2044", "aia_m_2044", "aia_f_2041", "aia_m_2041", "aia_f_9325", "aia_m_9325" };
+        internal static readonly List<string> lesbianAnaTongueAnimationNames = new List<string>();
+        internal static readonly List<string> maleTongueTwoFemaleAnimationNames = new List<string> { "ai3p_f1_00", "ai3p_f2_01", "h2_mf2_f1_08", "h2_mf2_f2_09" };
+        internal static readonly List<string> maleAnaTongueTwoFemaleAnimationNames = new List<string>();
+        internal static readonly List<string> twoMaleTongueAnimationNames = new List<string>();
+        internal static readonly List<string> twoMaleAnaTongueAnimationNames = new List<string>();
+
+        // finger colliders
+        internal static readonly List<string> maleFingerAnimationNames = new List<string> { "aia_f_03", "aia_f_05", "aia_f_14", "aia_f_21", "aia_f_2035", "aia_f_2042", "aia_f_2034", "aia_f_2029", "aia_f_2045", "aia_f_2032", "aia_f_2028", "aia_f_9339", "h2a_f_00", "h2a_f_01", "aia_f_9315", "aia_f_9317", "aia_f_9332" };
+        internal static readonly List<string> maleAnaFingerAnimationNames = new List<string> { "aia_f_2036", "aia_f_9301", "aia_f_9302", "aia_f_9303", "aia_f_9304", "aia_f_9305", "aia_f_9306", "aia_f_9307", "aia_f_9308", "aia_f_9309", "aia_f_9310", "aia_f_9311", "aia_f_9312", "aia_f_9313", "aia_f_9316" };
+        internal static readonly List<string> maleFingerTwoFemaleAnimationNames = new List<string> { "h2_mf2_f1_02", "h2_mf2_f2_05" };
+        internal static readonly List<string> twoMaleFingerAnimationNames = new List<string>();
+        internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "aia_f_07", "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09", "h2t_f_02", "ait_f_4019", "ait_f_4008", "ait_f_4016", "ait_f_4018" };
+        internal static readonly List<string> femaleAnaSelfFingerAnimationNames = new List<string> { "aia_f_9314" };
+        internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01", "aia_f_03", "aia_m_03", "aia_f_05", "aia_m_05", "aia_f_21", "aia_m_21", "h2a_f_01", "h2a_m_01", "aia_f_2035", "aia_m_2035", "aia_f_2042", "aia_m_2042", "aia_f_2034", "aia_m_2034", "aia_f_2029", "aia_m_2029", "aia_f_2045", "aia_m_2045", "aia_f_2032", "aia_m_2032", "aia_f_2028", "aia_m_2028", "aia_f_9339", "aia_m_9339" };
+        internal static readonly List<string> lesbianAnaFingerAnimationNames = new List<string>();
+
+
     }
 #endif
 
@@ -142,6 +163,11 @@ namespace Core_BetterPenetration
         internal static readonly List<string> maleFingerAnimationNames = new List<string> { "aia_f_03", "aia_f_05", "aia_f_14", "aia_f_21", "h2a_f_00", "h2_mf2_f1_02", "h2_mf2_f2_05" };
         internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09"};
         internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01" };
+        internal static readonly List<string> maleAnaFingerAnimationNames = new List<string>();
+        internal static readonly List<string> femaleAnaSelfFingerAnimationNames = new List<string>();
+        internal static readonly List<string> lesbianAnaFingerAnimationNames = new List<string>();
+        internal static readonly List<string> maleFingerTwoFemaleAnimationNames = new List<string>();
+        internal static readonly List<string> twoMaleFingerAnimationNames = new List<string>();
     }
 #endif
 }

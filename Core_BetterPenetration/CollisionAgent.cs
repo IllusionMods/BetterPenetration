@@ -487,6 +487,21 @@ namespace Core_BetterPenetration
             }
         }
 
+        internal void AddAnaFingerColliders(CollisionAgent target)
+        {
+            if (m_fingerColliders == null || m_fingerColliders.Count == 0)
+                return;
+
+            if (target.m_anaDynamicBones == null)
+                return;
+
+            foreach (var collider in m_fingerColliders)
+            {
+                if (collider != null && !target.m_anaDynamicBones.m_Colliders.Contains(collider))
+                    target.m_anaDynamicBones.m_Colliders.Add(collider);
+            }
+        }
+
         internal void RemoveFingerColliders(CollisionAgent target)
         {
             if (m_fingerColliders == null || m_fingerColliders.Count == 0)
@@ -499,6 +514,15 @@ namespace Core_BetterPenetration
                     if (collider != null)
                         dynamicBone.m_Colliders.Remove(collider);
                 }
+            }
+
+            if (target.m_anaDynamicBones == null)
+                return;
+
+            foreach (var collider in m_fingerColliders)
+            {
+                if (collider != null)
+                    target.m_anaDynamicBones.m_Colliders.Remove(collider);
             }
         }
 

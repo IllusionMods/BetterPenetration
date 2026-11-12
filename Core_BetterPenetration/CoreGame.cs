@@ -222,6 +222,18 @@ namespace Core_BetterPenetration
             danAgents[maleNum].UpdateDanOptions(danLengthSquish, danGirthSquish, squishThreshold, squishOralGirth, simplifyVaginal, simplifyOral, rotateTamaWithShaft, limitCorrection, maxCorrection);
         }
 
+        public static void UpdateIsolateOrificeColliders(bool isolate)
+        {
+            if (danAgents == null)
+                return;
+
+            foreach (var danAgent in danAgents)
+            {
+                if (danAgent != null && danAgent.m_danOptions != null)
+                    danAgent.m_danOptions.isolateOrificeColliders = isolate;
+            }
+        }
+
         public static void UpdateCollisionOptions(int femaleNum, CollisionOptions options)
         {
             if (femaleNum >= collisionAgents.Count || collisionAgents[femaleNum] == null)
@@ -305,8 +317,23 @@ namespace Core_BetterPenetration
             if (collisionAgents.Count > 1 && collisionAgents[1].m_collisionCharacter.visibleAll && collisionAgents[1].m_collisionCharacter.objTop != null)
                 secondAgent = collisionAgents[1];
 
-            ClearFingerColliders(danAgent, firstAgent, secondAgent);
-            AddFingerColliders(animation, danAgent, firstAgent, secondAgent);
+            DanAgent secondDanAgent = GetSecondDanAgent();
+
+            ClearFingerColliders(danAgent, firstAgent, secondAgent, secondDanAgent);
+            AddFingerColliders(animation, danAgent, firstAgent, secondAgent, secondDanAgent);
+        }
+
+        // The second male, only when it is actually present in the scene
+        internal static DanAgent GetSecondDanAgent()
+        {
+            if (danAgents == null || danAgents.Count < 2 || danAgents[1] == null)
+                return null;
+
+            ChaControl character = danAgents[1].m_danCharacter;
+            if (character == null || !character.visibleAll || character.objTop == null)
+                return null;
+
+            return danAgents[1];
         }
 
         internal static void ClearFingerColliders()
@@ -321,10 +348,10 @@ namespace Core_BetterPenetration
             if (collisionAgents.Count > 1)
                 secondAgent = collisionAgents[1];
 
-            ClearFingerColliders(danAgent, firstAgent, secondAgent);
+            ClearFingerColliders(danAgent, firstAgent, secondAgent, GetSecondDanAgent());
         }
 
-        internal static void ClearFingerColliders(DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null)
+        internal static void ClearFingerColliders(DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null, DanAgent secondDanAgent = null)
         {
             if (firstAgent == null)
                 return;
@@ -334,6 +361,9 @@ namespace Core_BetterPenetration
             if (danAgent != null)
                 danAgent.RemoveFingerColliders(firstAgent);
 
+            if (secondDanAgent != null)
+                secondDanAgent.RemoveFingerColliders(firstAgent);
+
             if (secondAgent == null)
                 return;
 
@@ -342,26 +372,57 @@ namespace Core_BetterPenetration
 
             if (danAgent != null)
                 danAgent.RemoveFingerColliders(secondAgent);
+
+            if (secondDanAgent != null)
+                secondDanAgent.RemoveFingerColliders(secondAgent);
         }
 
-        internal static void AddFingerColliders(string animation, DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null)
+        internal static void AddFingerColliders(string animation, DanAgent danAgent, CollisionAgent firstAgent, CollisionAgent secondAgent = null, DanAgent secondDanAgent = null)
         {
             if (animation == null || firstAgent == null)
                 return;
 
-            if (danAgent != null && BoneNames.maleFingerAnimationNames.Contains(animation))
+            // One male, one female: vaginal specific
+            if (danAgent != null && secondAgent == null && BoneNames.maleFingerAnimationNames.Contains(animation))
             {
                 danAgent.AddFingerColliders(firstAgent);
-
-                if (secondAgent != null)
-                    danAgent.AddFingerColliders(secondAgent);
-
                 return;
             }
 
+            // One male, one female: anal specific
+            if (danAgent != null && secondAgent == null && BoneNames.maleAnaFingerAnimationNames.Contains(animation))
+            {
+                danAgent.AddAnaFingerColliders(firstAgent);
+                return;
+            }
+
+            // One male, two females: the male's fingers reach both females
+            if (danAgent != null && secondAgent != null && BoneNames.maleFingerTwoFemaleAnimationNames.Contains(animation))
+            {
+                danAgent.AddFingerColliders(firstAgent);
+                danAgent.AddFingerColliders(secondAgent);
+                return;
+            }
+
+            // Two males, one female: both males' fingers reach the female
+            if (danAgent != null && secondDanAgent != null && secondAgent == null && BoneNames.twoMaleFingerAnimationNames.Contains(animation))
+            {
+                danAgent.AddFingerColliders(firstAgent);
+                secondDanAgent.AddFingerColliders(firstAgent);
+                return;
+            }
+
+            // One female: vaginal specific
             if (BoneNames.femaleSelfFingerAnimationNames.Contains(animation))
             {
                 firstAgent.AddFingerColliders(firstAgent);
+                return;
+            }
+
+            // One female: anal specific
+            if (BoneNames.femaleAnaSelfFingerAnimationNames.Contains(animation))
+            {
+                firstAgent.AddAnaFingerColliders(firstAgent);
                 return;
             }
 
@@ -372,6 +433,13 @@ namespace Core_BetterPenetration
             {
                 firstAgent.AddFingerColliders(secondAgent);
                 secondAgent.AddFingerColliders(firstAgent);
+                return;
+            }
+
+            if (BoneNames.lesbianAnaFingerAnimationNames.Contains(animation))
+            {
+                firstAgent.AddAnaFingerColliders(secondAgent);
+                secondAgent.AddAnaFingerColliders(firstAgent);
                 return;
             }
         }
@@ -386,19 +454,41 @@ namespace Core_BetterPenetration
 
         internal static void AddItemColliders(string animation)
         {
-            if (danAgents == null || danAgents.Count <= 0 || danAgents[0] == null || collisionAgents == null || collisionAgents[0] == null)
+            bool hasDanAgents = danAgents != null && danAgents.Count > 0;
+            bool hasCollisionAgents = collisionAgents != null && collisionAgents.Count > 0;
+
+            if (!hasCollisionAgents)
                 return;
 
             m_itemColliders = new List<DynamicBoneCollider>();
-            m_itemColliders.AddRange(GetCharacterItemColliders(danAgents[0].m_danCharacter, animation));
-            m_itemColliders.AddRange(GetCharacterItemColliders(collisionAgents[0].m_collisionCharacter, animation));
-
             m_anaItemColliders = new List<DynamicBoneCollider>();
-            m_anaItemColliders.AddRange(GetCharacterAnaItemColliders(danAgents[0].m_danCharacter, animation));
-            m_anaItemColliders.AddRange(GetCharacterAnaItemColliders(collisionAgents[0].m_collisionCharacter, animation));
 
-            collisionAgents[0].AddCollidersToKokan(m_itemColliders);
-            collisionAgents[0].AddCollidersToAna(m_anaItemColliders);
+            // Gather colliders from dan agents if present
+            if (hasDanAgents)
+            {
+                foreach (var danAgent in danAgents)
+                {
+                    if (danAgent == null) continue;
+                    m_itemColliders.AddRange(GetCharacterItemColliders(danAgent.m_danCharacter, animation));
+                    m_anaItemColliders.AddRange(GetCharacterAnaItemColliders(danAgent.m_danCharacter, animation));
+                }
+            }
+
+            // Gather colliders from all collision agents
+            foreach (var collisionAgent in collisionAgents)
+            {
+                if (collisionAgent == null) continue;
+                m_itemColliders.AddRange(GetCharacterItemColliders(collisionAgent.m_collisionCharacter, animation));
+                m_anaItemColliders.AddRange(GetCharacterAnaItemColliders(collisionAgent.m_collisionCharacter, animation));
+            }
+
+            // Apply the full collider sets to each collision agent
+            foreach (var collisionAgent in collisionAgents)
+            {
+                if (collisionAgent == null) continue;
+                collisionAgent.AddCollidersToKokan(m_itemColliders);
+                collisionAgent.AddCollidersToAna(m_anaItemColliders);
+            }
         }
 
         internal static List<DynamicBoneCollider> GetCharacterItemColliders(ChaControl character, string animation)
@@ -485,11 +575,19 @@ namespace Core_BetterPenetration
             itemColliderInfo = new List<ItemColliderInfo>
             {
 #if HS2
+                new ItemColliderInfo(BoneNames.maleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.lesbianTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.vibeAnimationNames, BoneNames.vibeBones, DynamicBoneColliderBase.Direction.Y, 0.15f, 0.56f),
                 new ItemColliderInfo(BoneNames.vibe2AnimationNames, BoneNames.vibe2Bones, DynamicBoneColliderBase.Direction.Y, 0.15f, 0.56f),
                 new ItemColliderInfo(BoneNames.dildoAnimationNames, BoneNames.dildoBones, DynamicBoneColliderBase.Direction.Y, 0.172f, 0.576f),
                 new ItemColliderInfo(BoneNames.tentacleAnimationNames, BoneNames.tentacleBones, DynamicBoneColliderBase.Direction.X, 0.164f, 0.656f)
 #else
+                new ItemColliderInfo(BoneNames.maleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.lesbianTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.vibeAnimationNames, BoneNames.vibeBones, DynamicBoneColliderBase.Direction.Y, 0.1f, 0.5f),
                 new ItemColliderInfo(BoneNames.vibe2AnimationNames, BoneNames.vibe2Bones, DynamicBoneColliderBase.Direction.Y, 0.1f, 0.5f),
                 new ItemColliderInfo(BoneNames.dildoAnimationNames, BoneNames.dildoBones, DynamicBoneColliderBase.Direction.Y, 0.115f, 0.5f),
@@ -503,9 +601,17 @@ namespace Core_BetterPenetration
             anaItemColliderInfo = new List<ItemColliderInfo>
             {
 #if HS2
+                new ItemColliderInfo(BoneNames.maleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.lesbianAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleAnaTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.anaVibeAnimationNames, BoneNames.anaVibeBones, DynamicBoneColliderBase.Direction.Y, 0.125f, 0.4f),
                 new ItemColliderInfo(BoneNames.tentacleAnimationNames, BoneNames.anaTentacleBones, DynamicBoneColliderBase.Direction.X, 0.164f, 0.656f)
 #else
+                new ItemColliderInfo(BoneNames.maleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.lesbianAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.maleAnaTongueTwoFemaleAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
+                new ItemColliderInfo(BoneNames.twoMaleAnaTongueAnimationNames, BoneNames.tongueBones, DynamicBoneColliderBase.Direction.Y, 0.025f, 0.13f),
                 new ItemColliderInfo(BoneNames.anaVibeAnimationNames, BoneNames.anaVibeBones, DynamicBoneColliderBase.Direction.Y, 0.09f, 0.36f),
                 new ItemColliderInfo(BoneNames.tentacleAnimationNames, BoneNames.tentacleBones, DynamicBoneColliderBase.Direction.X, 0.115f, 0.625f)
 #endif
@@ -524,4 +630,4 @@ namespace Core_BetterPenetration
 #endif
     }
 }
-#endif
+#endif

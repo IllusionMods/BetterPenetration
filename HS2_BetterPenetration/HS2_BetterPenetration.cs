@@ -52,6 +52,7 @@ namespace HS2_BetterPenetration
         internal static ConfigEntry<float> _kokanFixPositionY;
         internal static ConfigEntry<float> _kokanFixPositionZ;
         internal static ConfigEntry<float> _kokanFixRotationX;
+        internal static ConfigEntry<bool> _isolateOrificeColliders;
         internal static ConfigEntry<bool> _enableKokanPushPull;
         internal static ConfigEntry<float> _maxKokanPush;
         internal static ConfigEntry<float> _maxKokanPull;
@@ -146,6 +147,8 @@ namespace HS2_BetterPenetration
             { UpdateCollisionOptions(); };
             (_anaAdjustRotation = Config.Bind("Joint Adjustment", "Anal Rotation", new Vector3(0f, 10f, 20f), "Amount to adjust the butt bones rotation for Anal positions")).SettingChanged += (s, e) =>
             { UpdateCollisionOptions(); };
+            (_isolateOrificeColliders = Config.Bind("Options", "Isolate Orifice Colliders", true, "When the animation's target is known (vaginal or anal), only add the male colliders to that orifice. Disable to restore the old behavior of adding them to both orifices when a single male is in the scene. Takes effect the next time the animation changes.")).SettingChanged += (s, e) =>
+            { UpdateIsolateOrificeColliders(); };
             (_enableKokanPushPull = Config.Bind("Push/Pull", "Vaginal Enable", true, "Enable vaginal push/pull during penetration")).SettingChanged += (s, e) =>
             { UpdateCollisionOptions(); };
             (_maxKokanPush = Config.Bind("Push/Pull", "Vaginal Max Push", 0.075f, "Maximum amount to push the vagina inwards during penetration")).SettingChanged += (s, e) =>
@@ -368,6 +371,14 @@ namespace HS2_BetterPenetration
                     _limitCorrection[maleNum].Value, _maxCorrection[maleNum].Value);
         }
 
+        internal static void UpdateIsolateOrificeColliders()
+        {
+            if (!inHScene)
+                return;
+
+            CoreGame.UpdateIsolateOrificeColliders(_isolateOrificeColliders.Value);
+        }
+
         internal static void UpdateCollisionOptions()
         {
             if (!inHScene)
@@ -387,7 +398,10 @@ namespace HS2_BetterPenetration
                 danOptions.Add(new DanOptions(_danColliderRadiusScale[maleNum].Value, _danColliderLengthScale[maleNum].Value,
                     _danLengthSquishFactor[maleNum].Value, _danGirthSquishFactor[maleNum].Value, _danSquishThreshold[maleNum].Value, _danSquishOralGirth[maleNum].Value,
                     _simplifyVaginal[maleNum].Value, _simplifyOral[maleNum].Value, _simplifyAnal[maleNum].Value, _rotateTamaWithShaft[maleNum].Value,
-                    _limitCorrection[maleNum].Value, _maxCorrection[maleNum].Value));
+                    _limitCorrection[maleNum].Value, _maxCorrection[maleNum].Value)
+                {
+                    isolateOrificeColliders = _isolateOrificeColliders.Value
+                });
             }
 
             return danOptions;
