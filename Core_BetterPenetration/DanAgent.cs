@@ -978,7 +978,7 @@ namespace Core_BetterPenetration
             // The look-at target tells us which orifice this animation uses, so only that orifice gets the dan colliders.
             // A null target gives no hint, so it keeps the old behaviour (both orifices when there is a single dan).
             bool skipOpposite = twoDans || (m_danOptions.isolateOrificeColliders && lookAtTransform != null);
-            UnityEngine.Debug.Log($"BP Dan colliders: lookAt={(lookAtTransform != null ? lookAtTransform.name : "null")} skipOpposite={skipOpposite}");
+            // UnityEngine.Debug.Log($"BP Dan colliders: lookAt={(lookAtTransform != null ? lookAtTransform.name : "null")} skipOpposite={skipOpposite}");
 
             if (lookAtTransform == null || lookAtTransform.name == LookTargets.KokanTarget)
                 AddDanCollidersToKokan(firstTarget, skipOpposite);
