@@ -79,7 +79,7 @@ namespace Core_BetterPenetration
 
         // tongue colliders
         internal static readonly List<string> maleTongueAnimationNames = new List<string> { "aia_f_04", "aia_f_06", "aia_f_10", "aia_f_13", "aia_f_18", "aia_f_19", "aia_f_23", "aia_f_24", "aia_f_26", "aia_f_2037", "aia_f_2030", "aia_f_2044", "aia_f_2041", "aia_f_9325", "aia_f_9331" };
-        internal static readonly List<string> maleAnaTongueAnimationNames = new List<string> { "aia_f_08" };
+        internal static readonly List<string> maleAnaTongueAnimationNames = new List<string> { "aia_f_08", "aia_f_2038" };
         internal static readonly List<string> lesbianTongueAnimationNames = new List<string> { "ail_f1_02", "ail_f2_02", "ail_f1_03", "ail_f2_03", "ail_f1_04", "ail_f2_04", "aia_f_04", "aia_m_04", "aia_f_06", "aia_m_06", "aia_f_10", "aia_m_10", "aia_f_13", "aia_m_13", "aia_f_19", "aia_m_19", "aia_f_24", "aia_m_24", "aia_f_26", "aia_m_26", "aia_f_2037", "aia_m_2037", "aia_f_2030", "aia_m_2030", "aia_f_2044", "aia_m_2044", "aia_f_2041", "aia_m_2041", "aia_f_9325", "aia_m_9325" };
         internal static readonly List<string> lesbianAnaTongueAnimationNames = new List<string>();
         internal static readonly List<string> maleTongueTwoFemaleAnimationNames = new List<string> { "ai3p_f1_00", "ai3p_f2_01", "h2_mf2_f1_08", "h2_mf2_f2_09" };
