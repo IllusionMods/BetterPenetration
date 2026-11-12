@@ -95,6 +95,7 @@ namespace Core_BetterPenetration
         internal static readonly List<string> femaleSelfFingerAnimationNames = new List<string> { "aia_f_07", "ait_f_01", "ait_f_03", "ait_f_04", "ait_f_05", "ait_f_06", "ait_f_08", "ait_f_09", "h2t_f_02", "ait_f_4019", "ait_f_4008", "ait_f_4016", "ait_f_4018" };
         internal static readonly List<string> femaleAnaSelfFingerAnimationNames = new List<string> { "aia_f_9314" };
         internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01", "aia_f_03", "aia_m_03", "aia_f_05", "aia_m_05", "aia_f_21", "aia_m_21", "h2a_f_01", "h2a_m_01", "aia_f_2035", "aia_m_2035", "aia_f_2042", "aia_m_2042", "aia_f_2034", "aia_m_2034", "aia_f_2029", "aia_m_2029", "aia_f_2045", "aia_m_2045", "aia_f_2032", "aia_m_2032", "aia_f_2028", "aia_m_2028", "aia_f_9339", "aia_m_9339" };
+        internal static readonly List<string> lesbianAnaFingerAnimationNames = new List<string>();
 
 
     }
@@ -164,6 +165,7 @@ namespace Core_BetterPenetration
         internal static readonly List<string> lesbianFingerAnimationNames = new List<string> { "ail_f1_01", "ail_f2_01" };
         internal static readonly List<string> maleAnaFingerAnimationNames = new List<string>();
         internal static readonly List<string> femaleAnaSelfFingerAnimationNames = new List<string>();
+        internal static readonly List<string> lesbianAnaFingerAnimationNames = new List<string>();
         internal static readonly List<string> maleFingerTwoFemaleAnimationNames = new List<string>();
         internal static readonly List<string> twoMaleFingerAnimationNames = new List<string>();
     }

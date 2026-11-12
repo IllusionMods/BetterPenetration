@@ -515,6 +515,15 @@ namespace Core_BetterPenetration
                         dynamicBone.m_Colliders.Remove(collider);
                 }
             }
+
+            if (target.m_anaDynamicBones == null)
+                return;
+
+            foreach (var collider in m_fingerColliders)
+            {
+                if (collider != null)
+                    target.m_anaDynamicBones.m_Colliders.Remove(collider);
+            }
         }
 
         internal void AddCollidersToKokan(List<DynamicBoneCollider> colliders)

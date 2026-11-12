@@ -435,6 +435,13 @@ namespace Core_BetterPenetration
                 secondAgent.AddFingerColliders(firstAgent);
                 return;
             }
+
+            if (BoneNames.lesbianAnaFingerAnimationNames.Contains(animation))
+            {
+                firstAgent.AddAnaFingerColliders(secondAgent);
+                secondAgent.AddAnaFingerColliders(firstAgent);
+                return;
+            }
         }
 
 #if HS2 || AI
